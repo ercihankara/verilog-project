@@ -6,23 +6,17 @@ module read
 #(
     parameter threshold = 3
 )
-(input clk, input bit, output reg [1:0] disp, input [17:0] buffer1_o, input [17:0] buffer2_o, input [17:0] buffer3_o, input [17:0] buffer4_o,
+(input clk, output reg [1:0] disp, input [17:0] buffer1_o, input [17:0] buffer2_o, input [17:0] buffer3_o, input [17:0] buffer4_o,
 output reg [17:0] buffer1_open, output reg [17:0] buffer2_open,
 output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 	
 // take input bitwise then create the buffers inside the module again
 
-//	output reg [17:0] buffer1_open;
-//	output reg [17:0] buffer2_open;
-//	output reg [17:0] buffer3_open;
-//	output reg [17:0] buffer4_open;
-	
-	always@ (*) begin
+	initial begin
 		buffer1_open <= buffer1_o;
 		buffer2_open <= buffer2_o;
 		buffer3_open <= buffer3_o;
 		buffer4_open <= buffer4_o;
-	
 	end
 	
 	reg [2:0] buffer1_r [5:0];
@@ -102,7 +96,6 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					//shift3
 					for(m = 0; m < 15; m = m + 1) begin
 						buffer3_open[m] <= buffer3_open[m+3];
-						buffer3_open[m+3] <= 0;
 					end
 					
 					disp <= buffer3_r[0][2:1];
@@ -171,5 +164,4 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 			
 		endcase
 	end
-	
 endmodule
