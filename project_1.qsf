@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY read
+set_global_assignment -name TOP_LEVEL_ENTITY main
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "01:10:42  JUNE 30, 2022"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
@@ -62,11 +62,9 @@ set_location_assignment PIN_V18 -to buffer1_o[3]
 set_location_assignment PIN_W17 -to buffer1_o[4]
 set_location_assignment PIN_W19 -to buffer1_o[5]
 set_location_assignment PIN_V16 -to buffer1_o[0]
-set_global_assignment -name VERILOG_FILE take_in.v
-set_global_assignment -name VERILOG_FILE read.v
-set_global_assignment -name VERILOG_FILE son.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform8.vwf
+set_global_assignment -name VERILOG_FILE main.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

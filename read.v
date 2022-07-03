@@ -6,7 +6,7 @@ module read
 #(
     parameter threshold = 3
 )
-(input clk, output reg [1:0] disp, input [17:0] buffer1_o, input [17:0] buffer2_o, input [17:0] buffer3_o, input [17:0] buffer4_o,
+(input clk, output reg [1:0] disp, input wire [17:0] buffer1_o, input wire [17:0] buffer2_o, input wire [17:0] buffer3_o, input wire [17:0] buffer4_o,
 output reg [17:0] buffer1_open, output reg [17:0] buffer2_open,
 output reg [17:0] buffer3_open, output reg [17:0] buffer4_open, output reg read);
 	

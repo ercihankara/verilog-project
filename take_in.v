@@ -1,6 +1,6 @@
 module take_in
-(input start, input clk, input key0, input key1, output reg [17:0] buffer1_o, output reg [17:0] buffer2_o, output reg [17:0] buffer3_o,
-output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output reg received_data);
+(input start, input clk, input key0, input key1, output wire [17:0] buffer1_o, output wire [17:0] buffer2_o, output wire [17:0] buffer3_o,
+output wire [17:0] buffer4_o, output wire [3:0] dataaa, output wire drops, output wire received_data);
 
 // When start = 1, create the data from key0 and key1 where
 // key0 assigned to 0, key1 assigned to 1 !!!
@@ -16,6 +16,15 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 	reg [2:0] buffer3 [5:0];
 	reg [2:0] buffer4 [5:0];
 	
+	reg [17:0] buffer1_reg;
+	reg [17:0] buffer2_reg;
+	reg [17:0] buffer3_reg;
+	reg [17:0] buffer4_reg;
+	
+	reg [3:0] data_reg;
+	reg drops_reg;
+	reg received_data_reg;
+	
 	initial begin
 
 		for (k = 0; k < 6; k = k+1) begin
@@ -26,7 +35,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 			buffer4[k] <= 0;
 			
 		end
-		dataaa <= 0;
+		data_reg <= 0;
 	end
 		
 // third bit for validity, if 1 read; if 0 pass
@@ -39,8 +48,8 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 		opener <= 0;
 		indexer <= 0;
 		holder <= 0;
-		drops <= 0;
-		received_data <= 0;
+		drops_reg <= 0;
+		received_data_reg <= 0;
 	
 	end
 	
@@ -88,7 +97,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 						indexer <= 0;
 						started <= 0;
 					end
-					received_data <= received_data + 1;
+					received_data_reg <= received_data_reg + 1;
 					
 				end
 				// data created
@@ -111,7 +120,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 								buffer1[3] <= buffer1[4];
 								buffer1[4] <= buffer1[5];
 								buffer1[5] <= 0;
-								drops <= drops + 1;
+								drops_reg <= drops_reg + 1;
 								
 //								for (h = 0; h < 5; h = h +1) begin
 //									buffer1[h] <= buffer1[h + 1];								
@@ -133,7 +142,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 								buffer2[3] <= buffer2[4];
 								buffer2[4] <= buffer2[5];
 								buffer2[5] <= 0;
-								drops <= drops + 1;
+								drops_reg <= drops_reg + 1;
 
 						  end
 				
@@ -150,7 +159,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 								buffer3[3] <= buffer3[4];
 								buffer3[4] <= buffer3[5];
 								buffer3[5] <= 0;
-								drops <= drops + 1;
+								drops_reg <= drops_reg + 1;
 								
 						  end
 						  
@@ -167,7 +176,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 								buffer4[3] <= buffer4[4];
 								buffer4[4] <= buffer4[5];
 								buffer4[5] <= 0;
-								drops <= drops + 1;
+								drops_reg <= drops_reg + 1;
 						  end
 			
 			endcase
@@ -179,14 +188,23 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output r
 	// open the 2D arrays
 			for (i = 0; i < 6; i = i+1) begin
 		
-				buffer1_o[3*i+2 -:3] <= buffer1[i];
-				buffer2_o[3*i+2 -:3] <= buffer2[i];
-				buffer3_o[3*i+2 -:3] <= buffer3[i];
-				buffer4_o[3*i+2 -:3] <= buffer4[i];
+				buffer1_reg[3*i+2 -:3] = buffer1[i];
+				buffer2_reg[3*i+2 -:3] = buffer2[i];
+				buffer3_reg[3*i+2 -:3] = buffer3[i];
+				buffer4_reg[3*i+2 -:3] = buffer4[i];
 
 			end
-			dataaa <= data;
+			data_reg <= data;
 	end
+	
+	
+	assign buffer1_o = buffer1_reg;
+	assign buffer2_o = buffer2_reg;
+	assign buffer3_o = buffer3_reg;
+	assign buffer4_o = buffer4_reg;
+	assign dataaa = data_reg;
+	assign drops = drops_reg;
+	assign received_data = received_data_reg;
 	
 endmodule
 // waveform8 is the simulation file
