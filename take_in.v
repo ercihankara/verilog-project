@@ -1,6 +1,6 @@
 module take_in
 (input start, input clk, input key0, input key1, output reg [17:0] buffer1_o, output reg [17:0] buffer2_o, output reg [17:0] buffer3_o,
-output reg [17:0] buffer4_o, output reg [3:0] dataaa);
+output reg [17:0] buffer4_o, output reg [3:0] dataaa, output reg drops, output reg received_data);
 
 // When start = 1, create the data from key0 and key1 where
 // key0 assigned to 0, key1 assigned to 1 !!!
@@ -17,7 +17,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 	reg [2:0] buffer4 [5:0];
 	
 	initial begin
-	
+
 		for (k = 0; k < 6; k = k+1) begin
 		
 			buffer1[k] <= 0;
@@ -39,6 +39,9 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 		opener <= 0;
 		indexer <= 0;
 		holder <= 0;
+		drops <= 0;
+		received_data <= 0;
+	
 	end
 	
 // BOB1B2B3
@@ -85,6 +88,8 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 						indexer <= 0;
 						started <= 0;
 					end
+					received_data <= received_data + 1;
+					
 				end
 				// data created
 			endcase
@@ -106,6 +111,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 								buffer1[3] <= buffer1[4];
 								buffer1[4] <= buffer1[5];
 								buffer1[5] <= 0;
+								drops <= drops + 1;
 								
 //								for (h = 0; h < 5; h = h +1) begin
 //									buffer1[h] <= buffer1[h + 1];								
@@ -127,6 +133,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 								buffer2[3] <= buffer2[4];
 								buffer2[4] <= buffer2[5];
 								buffer2[5] <= 0;
+								drops <= drops + 1;
 
 						  end
 				
@@ -143,7 +150,8 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 								buffer3[3] <= buffer3[4];
 								buffer3[4] <= buffer3[5];
 								buffer3[5] <= 0;
-
+								drops <= drops + 1;
+								
 						  end
 						  
 				2'b11 : begin
@@ -159,6 +167,7 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 								buffer4[3] <= buffer4[4];
 								buffer4[4] <= buffer4[5];
 								buffer4[5] <= 0;
+								drops <= drops + 1;
 						  end
 			
 			endcase
@@ -181,3 +190,4 @@ output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 	
 endmodule
 // waveform8 is the simulation file
+// data ters amk

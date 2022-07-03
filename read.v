@@ -8,7 +8,7 @@ module read
 )
 (input clk, output reg [1:0] disp, input [17:0] buffer1_o, input [17:0] buffer2_o, input [17:0] buffer3_o, input [17:0] buffer4_o,
 output reg [17:0] buffer1_open, output reg [17:0] buffer2_open,
-output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
+output reg [17:0] buffer3_open, output reg [17:0] buffer4_open, output reg read);
 	
 // take input bitwise then create the buffers inside the module again
 
@@ -17,6 +17,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 		buffer2_open <= buffer2_o;
 		buffer3_open <= buffer3_o;
 		buffer4_open <= buffer4_o;
+		read <= 0;
 	end
 	
 	reg [2:0] buffer1_r [5:0];
@@ -78,6 +79,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer1_r[0][2:1];
 					buffer1_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 				
@@ -89,6 +91,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer2_r[0][2:1];
 					buffer2_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 				
@@ -100,6 +103,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer3_r[0][2:1];
 					buffer3_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 					
@@ -111,6 +115,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer4_r[0][2:1];
 					buffer4_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 			end			
@@ -125,6 +130,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer4_r[0][2:1];
 					buffer4_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 				
@@ -136,6 +142,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 				
 					disp <= buffer3_r[0][2:1];
 					buffer3_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 				
@@ -147,6 +154,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer2_r[0][2:1];
 					buffer2_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 				
@@ -158,6 +166,7 @@ output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
 					
 					disp <= buffer1_r[0][2:1];
 					buffer1_open[0] <= 1'b0;
+					read <= read + 1;
 					
 				end
 			end
