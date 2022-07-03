@@ -2,24 +2,42 @@
 # ** Warning: (vlib-34) Library already exists at "work".
 # 
 # Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
-# -- Compiling module read
+# -- Compiling module take_in
 # 
 # Top level modules:
-# 	read
+# 	take_in
 # Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
-# -- Compiling module read_vlg_sample_tst
-# -- Compiling module read_vlg_check_tst
-# -- Compiling module read_vlg_vec_tst
+# -- Compiling module take_in_vlg_sample_tst
+# -- Compiling module take_in_vlg_check_tst
+# -- Compiling module take_in_vlg_vec_tst
 # 
 # Top level modules:
-# 	read_vlg_vec_tst
-# vsim -L cyclonev_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate -c -voptargs=\"+acc\" -t 1ps -novopt work.read_vlg_vec_tst 
-# Loading work.read_vlg_vec_tst
-# Loading work.read
+# 	take_in_vlg_vec_tst
+# vsim -L cyclonev_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate -c -voptargs=\"+acc\" -t 1ps -novopt work.take_in_vlg_vec_tst 
+# Loading work.take_in_vlg_vec_tst
+# Loading work.take_in
 # Loading altera_ver.dffeas
-# Loading work.read_vlg_sample_tst
-# Loading work.read_vlg_check_tst
+# Loading work.take_in_vlg_sample_tst
+# Loading work.take_in_vlg_check_tst
 # Loading altera_ver.PRIM_GDFF_LOW
-# Simulation passed !
-# ** Note: $finish    : Waveform7.vwf.vt(193)
-#    Time: 480 ns  Iteration: 0  Instance: /read_vlg_vec_tst/tb_out
+# ERROR! Vector Mismatch for output port buffer1_o[0] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+# ERROR! Vector Mismatch for output port buffer1_o[3] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+# ERROR! Vector Mismatch for output port buffer1_o[6] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+# ERROR! Vector Mismatch for output port buffer1_o[9] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+# ERROR! Vector Mismatch for output port buffer1_o[12] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+# ERROR! Vector Mismatch for output port buffer1_o[15] :: @time = 480000.000 ps
+#      Expected value = 000000000000000000
+#      Real value = 001001001001001001
+#           6 mismatched vectors : Simulation failed !
+# ** Note: $finish    : Waveform8.vwf.vt(1611)
+#    Time: 1 us  Iteration: 0  Instance: /take_in_vlg_vec_tst/tb_out

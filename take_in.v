@@ -1,15 +1,13 @@
-//`include "C:/Users/ercih/Desktop/project/shift.v"
-
 module take_in
 (input start, input clk, input key0, input key1, output reg [17:0] buffer1_o, output reg [17:0] buffer2_o, output reg [17:0] buffer3_o,
-output reg [17:0] buffer4_o);
+output reg [17:0] buffer4_o, output reg [3:0] dataaa);
 
-// start button is clk signal, when 1 take input
 // When start = 1, create the data from key0 and key1 where
 // key0 assigned to 0, key1 assigned to 1 !!!
-// shifting için module yaz
+// buttons are 1 when not pushed!!! 0 when pushed
+// count number of drops, read, received data from FPGA
 	
-	integer k, l, h;
+	integer k, h;
 	
 	reg [3:0] data;
 	reg [3:0] holder;
@@ -27,7 +25,8 @@ output reg [17:0] buffer4_o);
 			buffer3[k] <= 0;
 			buffer4[k] <= 0;
 			
-		end	
+		end
+		dataaa <= 0;
 	end
 		
 // third bit for validity, if 1 read; if 0 pass
@@ -46,7 +45,6 @@ output reg [17:0] buffer4_o);
 // input is stored from left I guess
 	
 	always@ (posedge clk) begin
-	
 	// delay to give input data
 		if (start == 0 && started < 3) begin
 			data <= 0;
@@ -101,8 +99,19 @@ output reg [17:0] buffer4_o);
 							if (i1 != 5)
 								i1 = i1 + 1;
 							else
-								i1 = 0; // shifting will be realized here
-
+								i1 = 5; // shifting will be realized here
+								buffer1[0] <= buffer1[1];
+								buffer1[1] <= buffer1[2];
+								buffer1[2] <= buffer1[3];
+								buffer1[3] <= buffer1[4];
+								buffer1[4] <= buffer1[5];
+								buffer1[5] <= 0;
+								
+//								for (h = 0; h < 5; h = h +1) begin
+//									buffer1[h] <= buffer1[h + 1];								
+//									if (h == 5)
+//										buffer1[h] <= 0;
+//								end
 						  end
 						  
 				2'b01 : begin
@@ -111,7 +120,13 @@ output reg [17:0] buffer4_o);
 							if (i2 != 5)
 								i2 = i2 + 1;
 							else
-								i2 = 0;
+								i2 = 5; // shifting will be realized here
+								buffer2[0] <= buffer2[1];
+								buffer2[1] <= buffer2[2];
+								buffer2[2] <= buffer2[3];
+								buffer2[3] <= buffer2[4];
+								buffer2[4] <= buffer2[5];
+								buffer2[5] <= 0;
 
 						  end
 				
@@ -121,7 +136,13 @@ output reg [17:0] buffer4_o);
 							if (i3 != 5)
 								i3 = i3 + 1;
 							else
-								i3 = 0;
+								i3 = 5; // shifting will be realized here
+								buffer3[0] <= buffer3[1];
+								buffer3[1] <= buffer3[2];
+								buffer3[2] <= buffer3[3];
+								buffer3[3] <= buffer3[4];
+								buffer3[4] <= buffer3[5];
+								buffer3[5] <= 0;
 
 						  end
 						  
@@ -131,7 +152,13 @@ output reg [17:0] buffer4_o);
 							if (i4 != 5)
 								i4 = i4 + 1;
 							else
-								i4 = 0;
+								i4 = 5; // shifting will be realized here
+								buffer4[0] <= buffer4[1];
+								buffer4[1] <= buffer4[2];
+								buffer4[2] <= buffer4[3];
+								buffer4[3] <= buffer4[4];
+								buffer4[4] <= buffer4[5];
+								buffer4[5] <= 0;
 						  end
 			
 			endcase
@@ -140,7 +167,7 @@ output reg [17:0] buffer4_o);
 	end
 	
 	always@ (*) begin
-		
+	// open the 2D arrays
 			for (i = 0; i < 6; i = i+1) begin
 		
 				buffer1_o[3*i+2 -:3] <= buffer1[i];
@@ -148,8 +175,9 @@ output reg [17:0] buffer4_o);
 				buffer3_o[3*i+2 -:3] <= buffer3[i];
 				buffer4_o[3*i+2 -:3] <= buffer4[i];
 
-			end		
+			end
+			dataaa <= data;
 	end
 	
 endmodule
-// modules: take input, read data, shift and arrange registers
+// waveform8 is the simulation file

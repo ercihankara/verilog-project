@@ -9,6 +9,7 @@ entity take_in is
         buffer1_o       : out    vl_logic_vector(17 downto 0);
         buffer2_o       : out    vl_logic_vector(17 downto 0);
         buffer3_o       : out    vl_logic_vector(17 downto 0);
-        buffer4_o       : out    vl_logic_vector(17 downto 0)
+        buffer4_o       : out    vl_logic_vector(17 downto 0);
+        dataaa          : out    vl_logic_vector(3 downto 0)
     );
 end take_in;
