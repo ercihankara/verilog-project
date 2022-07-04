@@ -18,7 +18,7 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "07/03/2022 13:15:10"
+// Generated on "07/04/2022 12:40:39"
                                                                         
 // Verilog Self-Checking Test Bench (with test vectors) for design :    read
 // 
@@ -68,6 +68,7 @@ module read_vlg_check_tst (
 	buffer3_open,
 	buffer4_open,
 	disp,
+	read,
 	sampler_rx
 );
 input [17:0] buffer1_open;
@@ -75,6 +76,7 @@ input [17:0] buffer2_open;
 input [17:0] buffer3_open;
 input [17:0] buffer4_open;
 input [1:0] disp;
+input  read;
 input sampler_rx;
 
 reg [17:0] buffer1_open_expected;
@@ -82,12 +84,14 @@ reg [17:0] buffer2_open_expected;
 reg [17:0] buffer3_open_expected;
 reg [17:0] buffer4_open_expected;
 reg [1:0] disp_expected;
+reg  read_expected;
 
 reg [17:0] buffer1_open_prev;
 reg [17:0] buffer2_open_prev;
 reg [17:0] buffer3_open_prev;
 reg [17:0] buffer4_open_prev;
 reg [1:0] disp_prev;
+reg  read_prev;
 
 reg [1:0] disp_expected_prev;
 
@@ -98,7 +102,7 @@ reg trigger;
 integer i;
 integer nummismatches;
 
-reg [1:5] on_first_change ;
+reg [1:6] on_first_change ;
 
 
 initial
@@ -106,7 +110,7 @@ begin
 trigger = 0;
 i = 0;
 nummismatches = 0;
-on_first_change = 5'b1;
+on_first_change = 6'b1;
 end
 
 // update real /o prevs
@@ -118,6 +122,7 @@ begin
 	buffer3_open_prev = buffer3_open;
 	buffer4_open_prev = buffer4_open;
 	disp_prev = disp;
+	read_prev = read;
 end
 
 // update expected /o prevs
@@ -139,7 +144,7 @@ begin
 	disp_expected[0] = 1'bX;
 end 
 // generate trigger
-always @(buffer1_open_expected or buffer1_open or buffer2_open_expected or buffer2_open or buffer3_open_expected or buffer3_open or buffer4_open_expected or buffer4_open or disp_expected or disp)
+always @(buffer1_open_expected or buffer1_open or buffer2_open_expected or buffer2_open or buffer3_open_expected or buffer3_open or buffer4_open_expected or buffer4_open or disp_expected or disp or read_expected or read)
 begin
 	trigger <= ~trigger;
 end
@@ -149,8 +154,8 @@ begin
 `ifdef debug_tbench
 	$display("Scanning pattern %d @time = %t",i,$realtime );
 	i = i + 1;
-	$display("| expected buffer1_open = %b | expected buffer2_open = %b | expected buffer3_open = %b | expected buffer4_open = %b | expected disp = %b | ",buffer1_open_expected_prev,buffer2_open_expected_prev,buffer3_open_expected_prev,buffer4_open_expected_prev,disp_expected_prev);
-	$display("| real buffer1_open = %b | real buffer2_open = %b | real buffer3_open = %b | real buffer4_open = %b | real disp = %b | ",buffer1_open_prev,buffer2_open_prev,buffer3_open_prev,buffer4_open_prev,disp_prev);
+	$display("| expected buffer1_open = %b | expected buffer2_open = %b | expected buffer3_open = %b | expected buffer4_open = %b | expected disp = %b | expected read = %b | ",buffer1_open_expected_prev,buffer2_open_expected_prev,buffer3_open_expected_prev,buffer4_open_expected_prev,disp_expected_prev,read_expected_prev);
+	$display("| real buffer1_open = %b | real buffer2_open = %b | real buffer3_open = %b | real buffer4_open = %b | real disp = %b | real read = %b | ",buffer1_open_prev,buffer2_open_prev,buffer3_open_prev,buffer4_open_prev,disp_prev,read_prev);
 `endif
 	if (
 		( disp_expected_prev[0] !== 1'bx ) && ( disp_prev[0] !== disp_expected_prev[0] )
@@ -208,6 +213,7 @@ wire [17:0] buffer2_open;
 wire [17:0] buffer3_open;
 wire [17:0] buffer4_open;
 wire [1:0] disp;
+wire read;
 
 wire sampler;                             
 
@@ -223,7 +229,8 @@ read i1 (
 	.buffer4_o(buffer4_o),
 	.buffer4_open(buffer4_open),
 	.clk(clk),
-	.disp(disp)
+	.disp(disp),
+	.read(read)
 );
 
 // clk
@@ -236,74 +243,62 @@ end
 // buffer1_o[ 17 ]
 initial
 begin
-	buffer1_o[17] = 1'b1;
-	buffer1_o[17] = #270000 1'b0;
+	buffer1_o[17] = 1'b0;
 end 
 // buffer1_o[ 16 ]
 initial
 begin
-	buffer1_o[16] = 1'b1;
-	buffer1_o[16] = #270000 1'b0;
+	buffer1_o[16] = 1'b0;
 end 
 // buffer1_o[ 15 ]
 initial
 begin
-	buffer1_o[15] = 1'b1;
-	buffer1_o[15] = #270000 1'b0;
+	buffer1_o[15] = 1'b0;
 end 
 // buffer1_o[ 14 ]
 initial
 begin
-	buffer1_o[14] = 1'b1;
-	buffer1_o[14] = #270000 1'b0;
+	buffer1_o[14] = 1'b0;
 end 
 // buffer1_o[ 13 ]
 initial
 begin
-	buffer1_o[13] = 1'b1;
-	buffer1_o[13] = #270000 1'b0;
+	buffer1_o[13] = 1'b0;
 end 
 // buffer1_o[ 12 ]
 initial
 begin
-	buffer1_o[12] = 1'b1;
-	buffer1_o[12] = #270000 1'b0;
+	buffer1_o[12] = 1'b0;
 end 
 // buffer1_o[ 11 ]
 initial
 begin
-	buffer1_o[11] = 1'b1;
-	buffer1_o[11] = #270000 1'b0;
+	buffer1_o[11] = 1'b0;
 end 
 // buffer1_o[ 10 ]
 initial
 begin
-	buffer1_o[10] = 1'b1;
-	buffer1_o[10] = #270000 1'b0;
+	buffer1_o[10] = 1'b0;
 end 
 // buffer1_o[ 9 ]
 initial
 begin
-	buffer1_o[9] = 1'b1;
-	buffer1_o[9] = #270000 1'b0;
+	buffer1_o[9] = 1'b0;
 end 
 // buffer1_o[ 8 ]
 initial
 begin
-	buffer1_o[8] = 1'b1;
-	buffer1_o[8] = #270000 1'b0;
+	buffer1_o[8] = 1'b0;
 end 
 // buffer1_o[ 7 ]
 initial
 begin
-	buffer1_o[7] = 1'b1;
-	buffer1_o[7] = #270000 1'b0;
+	buffer1_o[7] = 1'b0;
 end 
 // buffer1_o[ 6 ]
 initial
 begin
-	buffer1_o[6] = 1'b1;
-	buffer1_o[6] = #270000 1'b0;
+	buffer1_o[6] = 1'b0;
 end 
 // buffer1_o[ 5 ]
 initial
@@ -627,6 +622,7 @@ read_vlg_check_tst tb_out(
 	.buffer3_open(buffer3_open),
 	.buffer4_open(buffer4_open),
 	.disp(disp),
+	.read(read),
 	.sampler_rx(sampler)
 );
 endmodule

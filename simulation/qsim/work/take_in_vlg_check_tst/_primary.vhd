@@ -7,6 +7,8 @@ entity take_in_vlg_check_tst is
         buffer3_o       : in     vl_logic_vector(17 downto 0);
         buffer4_o       : in     vl_logic_vector(17 downto 0);
         dataaa          : in     vl_logic_vector(3 downto 0);
+        drops           : in     vl_logic;
+        received_data   : in     vl_logic;
         sampler_rx      : in     vl_logic
     );
 end take_in_vlg_check_tst;

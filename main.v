@@ -2,9 +2,10 @@
 `include "C:/Users/ercih/Desktop/project/read.v"
 `include "C:/Users/ercih/Desktop/project/VGA_SyncS.v"
 
-module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, disp, buffer1_open, buffer2_open, buffer3_open, buffer4_open);
+module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, disp, buffer1_open, buffer2_o_open, buffer3_o_open, buffer4_o_open,
+VGA_HS, VGA_VS, VGA_CLK, color);
 
-	output reg [7:0] led1;
+	//output reg [7:0] led1;
 	output VGA_HS, VGA_VS;
 	output reg VGA_CLK=0;
 	output wire [7:0] color;
@@ -67,9 +68,9 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 	wire [17:0] buffer4_o;
 	
 	output wire [17:0] buffer1_open;
-	output wire [17:0] buffer2_open;
-	output wire [17:0] buffer3_open;
-	output wire [17:0] buffer4_open;
+	output wire [17:0] buffer2_o_open;
+	output wire [17:0] buffer3_o_open;
+	output wire [17:0] buffer4_o_open;
 	
 	initial begin
 	
@@ -111,8 +112,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 	// 1st Buffer -> Blue
 	if(position_x>=bPosX1 && position_x<bPosX1+s) begin
 		if	(position_y>=bPosY1 && position_y<bPosY1+s) begin
-		   if(buffer1[15]) begin
-				case(buffer1[17:16])
+		   if(buffer1_o[15]) begin
+				case(buffer1_o[17:16])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY1}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY1}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY1}];
@@ -124,8 +125,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY2 && position_y<bPosY2+s) begin
-			if(buffer1[12]) begin
-				case(buffer1[14:13])
+			if(buffer1_o[12]) begin
+				case(buffer1_o[14:13])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY2}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY2}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY2}];
@@ -137,8 +138,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY3 && position_y<bPosY3+s) begin
-			if(buffer1[9]) begin
-				case(buffer1[11:10])
+			if(buffer1_o[9]) begin
+				case(buffer1_o[11:10])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY3}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY3}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY3}];
@@ -150,8 +151,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY4 && position_y<bPosY4+s) begin
-			if(buffer1[6]) begin
-				case(buffer1[8:7])
+			if(buffer1_o[6]) begin
+				case(buffer1_o[8:7])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY4}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY4}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY4}];
@@ -163,8 +164,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY5 && position_y<bPosY5+s) begin
-			if(buffer1[3]) begin
-				case(buffer1[5:4])
+			if(buffer1_o[3]) begin
+				case(buffer1_o[5:4])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY5}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY5}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY5}];
@@ -176,8 +177,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY6 && position_y<bPosY6+s) begin
-			if(buffer1[0]) begin
-				case(buffer1[2:1])
+			if(buffer1_o[0]) begin
+				case(buffer1_o[2:1])
 				2'b00: color_i <= blue0[{(position_x-bPosX1)*s+position_y-bPosY6}];
 				2'b01: color_i <= blue1[{(position_x-bPosX1)*s+position_y-bPosY6}];
 				2'b10: color_i <= blue2[{(position_x-bPosX1)*s+position_y-bPosY6}];
@@ -194,8 +195,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 	// 2nd Buffer -> Green
 	else if(position_x>=bPosX2 && position_x<bPosX2+s) begin
 		if	(position_y>=bPosY1 && position_y<bPosY1+s) begin
-		    if(buffer2[15]) begin
-				case(buffer2[17:16])
+		    if(buffer2_o[15]) begin
+				case(buffer2_o[17:16])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY1}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY1}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY1}];
@@ -207,8 +208,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY2 && position_y<bPosY2+s) begin
-			if(buffer2[12]) begin
-				case(buffer2[14:13])
+			if(buffer2_o[12]) begin
+				case(buffer2_o[14:13])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY2}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY2}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY2}];
@@ -220,8 +221,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY3 && position_y<bPosY3+s) begin
-			if(buffer2[9]) begin
-				case(buffer2[11:10])
+			if(buffer2_o[9]) begin
+				case(buffer2_o[11:10])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY3}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY3}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY3}];
@@ -233,8 +234,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY4 && position_y<bPosY4+s) begin
-			if(buffer2[6]) begin
-				case(buffer2[8:7])
+			if(buffer2_o[6]) begin
+				case(buffer2_o[8:7])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY4}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY4}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY4}];
@@ -246,8 +247,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY5 && position_y<bPosY5+s) begin
-			if(buffer2[3]) begin
-				case(buffer2[5:4])
+			if(buffer2_o[3]) begin
+				case(buffer2_o[5:4])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY5}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY5}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY5}];
@@ -259,8 +260,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY6 && position_y<bPosY6+s) begin
-			if(buffer2[0]) begin
-				case(buffer2[2:1])
+			if(buffer2_o[0]) begin
+				case(buffer2_o[2:1])
 				2'b00: color_i <= green0[{(position_x-bPosX2)*s+position_y-bPosY6}];
 				2'b01: color_i <= green1[{(position_x-bPosX2)*s+position_y-bPosY6}];
 				2'b10: color_i <= green2[{(position_x-bPosX2)*s+position_y-bPosY6}];
@@ -278,8 +279,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 	// 3rd Buffer -> Red
 	else if(position_x>=bPosX3 && position_x<bPosX3+s) begin
 		if	(position_y>=bPosY1 && position_y<bPosY1+s) begin
-		   if(buffer3[15]) begin
-				case(buffer3[17:16])
+		   if(buffer3_o[15]) begin
+				case(buffer3_o[17:16])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY1}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY1}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY1}];
@@ -291,8 +292,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY2 && position_y<bPosY2+s) begin
-			if(buffer3[12]) begin
-				case(buffer3[14:13])
+			if(buffer3_o[12]) begin
+				case(buffer3_o[14:13])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY2}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY2}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY2}];
@@ -304,8 +305,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY3 && position_y<bPosY3+s) begin
-			if(buffer3[9]) begin
-				case(buffer3[11:10])
+			if(buffer3_o[9]) begin
+				case(buffer3_o[11:10])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY3}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY3}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY3}];
@@ -317,8 +318,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY4 && position_y<bPosY4+s) begin
-			if(buffer3[6]) begin
-				case(buffer3[8:7])
+			if(buffer3_o[6]) begin
+				case(buffer3_o[8:7])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY4}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY4}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY4}];
@@ -330,8 +331,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY5 && position_y<bPosY5+s) begin
-			if(buffer3[3]) begin
-				case(buffer3[5:4])
+			if(buffer3_o[3]) begin
+				case(buffer3_o[5:4])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY5}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY5}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY5}];
@@ -343,8 +344,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY6 && position_y<bPosY6+s) begin
-			if(buffer3[0]) begin
-				case(buffer3[2:1])
+			if(buffer3_o[0]) begin
+				case(buffer3_o[2:1])
 				2'b00: color_i <= red0[{(position_x-bPosX3)*s+position_y-bPosY6}];
 				2'b01: color_i <= red1[{(position_x-bPosX3)*s+position_y-bPosY6}];
 				2'b10: color_i <= red2[{(position_x-bPosX3)*s+position_y-bPosY6}];
@@ -361,8 +362,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 	// 4th Buffer -> Purple
 	else if(position_x>=bPosX4 && position_x<bPosX4+s) begin
 		if	(position_y>=bPosY1 && position_y<bPosY1+s) begin
-		  if(buffer4[15]) begin
-				case({buffer4[16],buffer4[17]})
+		  if(buffer4_o[15]) begin
+				case({buffer4_o[16],buffer4_o[17]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY1}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY1}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY1}];
@@ -373,8 +374,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY2 && position_y<bPosY2+s) begin
-			if(buffer4[12]) begin
-				case({buffer4[13],buffer4[14]})
+			if(buffer4_o[12]) begin
+				case({buffer4_o[13],buffer4_o[14]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY2}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY2}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY2}];
@@ -385,32 +386,32 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY3 && position_y<bPosY3+s) begin
-			if(buffer4[9]) begin
-				case({buffer4[10],buffer4[11]})
+			if(buffer4_o[9]) begin
+				case({buffer4_o[10],buffer4_o[11]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY3}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY3}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY3}];
 				2'b11: color_i <= purple3[{(position_x-bPosX4)*s+position_y-bPosY3}];
 				endcase
 			end
-			else color_i <= blank[{(pos_H-bPosX4)*s+position_y-bPosY3}];
+			else color_i <= blank[{(position_x-bPosX4)*s+position_y-bPosY3}];
 		end
 		
 		else if	(position_y>=bPosY4 && position_y<bPosY4+s) begin
-			if(buffer4[6]) begin
-			case({buffer4[7],buffer4[8]})
+			if(buffer4_o[6]) begin
+			case({buffer4_o[7],buffer4_o[8]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY4}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY4}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY4}];
 				2'b11: color_i <= purple3[{(position_x-bPosX4)*s+position_y-bPosY4}];
 				endcase
 				end
-			else color_i <= blank[{(pos_H-bPosX4)*s+position_y-bPosY4}];
+			else color_i <= blank[{(position_x-bPosX4)*s+position_y-bPosY4}];
 		end
 		
 		else if	(position_y>=bPosY5 && position_y<bPosY5+s) begin
-			if(buffer4[3]) begin
-				case({buffer4[4],buffer4[5]})
+			if(buffer4_o[3]) begin
+				case({buffer4_o[4],buffer4_o[5]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY5}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY5}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY5}];
@@ -421,8 +422,8 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		end
 		
 		else if	(position_y>=bPosY6 && position_y<bPosY6+s) begin
-			if(buffer4[0]) begin
-				case({buffer4[1],buffer4[2]})
+			if(buffer4_o[0]) begin
+				case({buffer4_o[1],buffer4_o[2]})
 				2'b00: color_i <= purple0[{(position_x-bPosX4)*s+position_y-bPosY6}];
 				2'b01: color_i <= purple1[{(position_x-bPosX4)*s+position_y-bPosY6}];
 				2'b10: color_i <= purple2[{(position_x-bPosX4)*s+position_y-bPosY6}];
@@ -434,10 +435,12 @@ module main(CLOCK_50, start, key0, key1, dataaa, drops, received_data, read, dis
 		
 		else color_i <= 8'h0; // black
 	end
+
+	end
 	
 	assign color = ready ? color_i : 8'h0;
 	
-	read reader(.clk (CLOCK_50), .buffer1_o (buffer1_o), .buffer2_o (buffer2_o), .buffer3_o (buffer3_o), .buffer4_o (buffer4_o),
-	.buffer1_open (buffer1_open), .buffer2_open (buffer2_open), .buffer3_open (buffer3_open), .buffer4_open (buffer4_open), .read (read), .disp (disp));
+	read reader(.clk (CLOCK_50), .buffer1_o (buffer1_o), .buffer2_o_o (buffer2_o_o), .buffer3_o_o (buffer3_o_o), .buffer4_o_o (buffer4_o_o),
+	.buffer1_open (buffer1_open), .buffer2_o_open (buffer2_o_open), .buffer3_o_open (buffer3_o_open), .buffer4_o_open (buffer4_o_open), .read (read), .disp (disp));
 
 endmodule

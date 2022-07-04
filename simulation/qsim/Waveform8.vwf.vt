@@ -18,7 +18,7 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "07/03/2022 14:44:11"
+// Generated on "07/04/2022 12:09:04"
                                                                         
 // Verilog Self-Checking Test Bench (with test vectors) for design :    take_in
 // 
@@ -66,6 +66,8 @@ module take_in_vlg_check_tst (
 	buffer3_o,
 	buffer4_o,
 	dataaa,
+	drops,
+	received_data,
 	sampler_rx
 );
 input [17:0] buffer1_o;
@@ -73,6 +75,8 @@ input [17:0] buffer2_o;
 input [17:0] buffer3_o;
 input [17:0] buffer4_o;
 input [3:0] dataaa;
+input  drops;
+input  received_data;
 input sampler_rx;
 
 reg [17:0] buffer1_o_expected;
@@ -80,12 +84,16 @@ reg [17:0] buffer2_o_expected;
 reg [17:0] buffer3_o_expected;
 reg [17:0] buffer4_o_expected;
 reg [3:0] dataaa_expected;
+reg  drops_expected;
+reg  received_data_expected;
 
 reg [17:0] buffer1_o_prev;
 reg [17:0] buffer2_o_prev;
 reg [17:0] buffer3_o_prev;
 reg [17:0] buffer4_o_prev;
 reg [3:0] dataaa_prev;
+reg  drops_prev;
+reg  received_data_prev;
 
 reg [17:0] buffer1_o_expected_prev;
 reg [17:0] buffer2_o_expected_prev;
@@ -104,7 +112,7 @@ reg trigger;
 integer i;
 integer nummismatches;
 
-reg [1:5] on_first_change ;
+reg [1:7] on_first_change ;
 
 
 initial
@@ -112,7 +120,7 @@ begin
 trigger = 0;
 i = 0;
 nummismatches = 0;
-on_first_change = 5'b1;
+on_first_change = 7'b1;
 end
 
 // update real /o prevs
@@ -124,6 +132,8 @@ begin
 	buffer3_o_prev = buffer3_o;
 	buffer4_o_prev = buffer4_o;
 	dataaa_prev = dataaa;
+	drops_prev = drops;
+	received_data_prev = received_data;
 end
 
 // update expected /o prevs
@@ -595,7 +605,7 @@ begin
 	buffer4_o_expected[0] = #479000 1'b0;
 end 
 // generate trigger
-always @(buffer1_o_expected or buffer1_o or buffer2_o_expected or buffer2_o or buffer3_o_expected or buffer3_o or buffer4_o_expected or buffer4_o or dataaa_expected or dataaa)
+always @(buffer1_o_expected or buffer1_o or buffer2_o_expected or buffer2_o or buffer3_o_expected or buffer3_o or buffer4_o_expected or buffer4_o or dataaa_expected or dataaa or drops_expected or drops or received_data_expected or received_data)
 begin
 	trigger <= ~trigger;
 end
@@ -605,8 +615,8 @@ begin
 `ifdef debug_tbench
 	$display("Scanning pattern %d @time = %t",i,$realtime );
 	i = i + 1;
-	$display("| expected buffer1_o = %b | expected buffer2_o = %b | expected buffer3_o = %b | expected buffer4_o = %b | expected dataaa = %b | ",buffer1_o_expected_prev,buffer2_o_expected_prev,buffer3_o_expected_prev,buffer4_o_expected_prev,dataaa_expected_prev);
-	$display("| real buffer1_o = %b | real buffer2_o = %b | real buffer3_o = %b | real buffer4_o = %b | real dataaa = %b | ",buffer1_o_prev,buffer2_o_prev,buffer3_o_prev,buffer4_o_prev,dataaa_prev);
+	$display("| expected buffer1_o = %b | expected buffer2_o = %b | expected buffer3_o = %b | expected buffer4_o = %b | expected dataaa = %b | expected drops = %b | expected received_data = %b | ",buffer1_o_expected_prev,buffer2_o_expected_prev,buffer3_o_expected_prev,buffer4_o_expected_prev,dataaa_expected_prev,drops_expected_prev,received_data_expected_prev);
+	$display("| real buffer1_o = %b | real buffer2_o = %b | real buffer3_o = %b | real buffer4_o = %b | real dataaa = %b | real drops = %b | real received_data = %b | ",buffer1_o_prev,buffer2_o_prev,buffer3_o_prev,buffer4_o_prev,dataaa_prev,drops_prev,received_data_prev);
 `endif
 	if (
 		( buffer1_o_expected_prev[0] !== 1'bx ) && ( buffer1_o_prev[0] !== buffer1_o_expected_prev[0] )
@@ -1625,6 +1635,8 @@ wire [17:0] buffer2_o;
 wire [17:0] buffer3_o;
 wire [17:0] buffer4_o;
 wire [3:0] dataaa;
+wire drops;
+wire received_data;
 
 wire sampler;                             
 
@@ -1637,8 +1649,10 @@ take_in i1 (
 	.buffer4_o(buffer4_o),
 	.clk(clk),
 	.dataaa(dataaa),
+	.drops(drops),
 	.key0(key0),
 	.key1(key1),
+	.received_data(received_data),
 	.start(start)
 );
 
@@ -1699,6 +1713,8 @@ take_in_vlg_check_tst tb_out(
 	.buffer3_o(buffer3_o),
 	.buffer4_o(buffer4_o),
 	.dataaa(dataaa),
+	.drops(drops),
+	.received_data(received_data),
 	.sampler_rx(sampler)
 );
 endmodule

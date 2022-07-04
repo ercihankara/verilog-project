@@ -7,6 +7,7 @@ entity read_vlg_check_tst is
         buffer3_open    : in     vl_logic_vector(17 downto 0);
         buffer4_open    : in     vl_logic_vector(17 downto 0);
         disp            : in     vl_logic_vector(1 downto 0);
+        read            : in     vl_logic;
         sampler_rx      : in     vl_logic
     );
 end read_vlg_check_tst;

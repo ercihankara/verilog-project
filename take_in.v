@@ -23,10 +23,11 @@ output wire [17:0] buffer4_o, output wire [3:0] dataaa, output wire drops, outpu
 	
 	reg [3:0] data_reg;
 	reg drops_reg;
+	reg pressed;
 	reg received_data_reg;
 	
 	initial begin
-
+		
 		for (k = 0; k < 6; k = k+1) begin
 		
 			buffer1[k] <= 0;
@@ -46,11 +47,11 @@ output wire [17:0] buffer4_o, output wire [3:0] dataaa, output wire drops, outpu
 		data <= 0;
 		started <= 0;
 		opener <= 0;
-		indexer <= 0;
+		indexer = 0;
 		holder <= 0;
 		drops_reg <= 0;
-		received_data_reg <= 0;
-	
+		received_data_reg = 0;
+		pressed = 0;	
 	end
 	
 // BOB1B2B3
@@ -63,125 +64,125 @@ output wire [17:0] buffer4_o, output wire [3:0] dataaa, output wire drops, outpu
 			started <= started + 1;
 		end
 		
-	// create the data	
+	// create the data
 		else if (started == 3) begin
 			
-			case({key0, key1})
+			case({key0,key1,pressed})
+								
+				3'b111 : begin
+					pressed <= 0 ;
+				end
 				
-				2'b10: begin // 0 for bit
+				3'b010: begin // 0 for bit
 				// store the input data in a temporary register
-					holder[indexer] <= 0;
-					indexer = indexer + 1;
+					holder[indexer] = 0;
+					pressed <= 1;
+					indexer <= indexer + 1;
 					if (indexer == 3) begin
-						data[3] <= holder[0];
-						data[2] <= holder[1];
-						data[1] <= holder[2];
-						data[0] <= holder[3];
+						data[3] = holder[0];
+						data[2] = holder[1];
+						data[1] = holder[2];
+						data[0] = holder[3];
 						opener <= 1;
 						indexer <= 0;
 						started <= 0;
 					end
-				
 				end
 				
-				2'b01: begin // 1 for bit
+				3'b100: begin // 1 for bit
 				// store the input data in a temporary register
-					holder[indexer] <= 1;
-					indexer = indexer + 1;
+					holder[indexer] = 1;
+					pressed <= 1;
+					indexer <= indexer + 1;
 					if (indexer == 3) begin
-						data[3] <= holder[0];
-						data[2] <= holder[1];
-						data[1] <= holder[2];
-						data[0] <= holder[3];
+						data[3] = holder[0];
+						data[2] = holder[1];
+						data[1] = holder[2];
+						data[0] = holder[3];
 						opener <= 1;
 						indexer <= 0;
 						started <= 0;
 					end
 					received_data_reg <= received_data_reg + 1;
-					
 				end
 				// data created
 			endcase
-		end
 				
-		if (opener == 1) begin
-			case(data[3:2])
-			
-				2'b00 : begin
-					
-							buffer1[i1] <= {data[1:0], 1'b1};
-							if (i1 != 5)
-								i1 = i1 + 1;
-							else
-								i1 = 5; // shifting will be realized here
-								buffer1[0] <= buffer1[1];
-								buffer1[1] <= buffer1[2];
-								buffer1[2] <= buffer1[3];
-								buffer1[3] <= buffer1[4];
-								buffer1[4] <= buffer1[5];
-								buffer1[5] <= 0;
-								drops_reg <= drops_reg + 1;
-								
-//								for (h = 0; h < 5; h = h +1) begin
-//									buffer1[h] <= buffer1[h + 1];								
-//									if (h == 5)
-//										buffer1[h] <= 0;
-//								end
-						  end
-						  
-				2'b01 : begin
-					
-							buffer2[i2] <= {data[1:0], 1'b1};
-							if (i2 != 5)
-								i2 = i2 + 1;
-							else
-								i2 = 5; // shifting will be realized here
-								buffer2[0] <= buffer2[1];
-								buffer2[1] <= buffer2[2];
-								buffer2[2] <= buffer2[3];
-								buffer2[3] <= buffer2[4];
-								buffer2[4] <= buffer2[5];
-								buffer2[5] <= 0;
-								drops_reg <= drops_reg + 1;
+			if (opener == 1) begin
+				case(data[3:2])
+				
+					2'b00 : begin
+						
+								buffer1[i1] <= {data[1:0], 1'b1};
+								if (i1 != 5)
+									i1 = i1 + 1;
+								else begin
+									i1 = 5; // shifting will be realized here
+									buffer1[0] <= buffer1[1];
+									buffer1[1] <= buffer1[2];
+									buffer1[2] <= buffer1[3];
+									buffer1[3] <= buffer1[4];
+									buffer1[4] <= buffer1[5];
+									buffer1[5] <= 0;
+									drops_reg <= drops_reg + 1;
+									end
+							  end
+							  
+					2'b01 : begin
+						
+								buffer2[i2] <= {data[1:0], 1'b1};
+								if (i2 != 5)
+									i2 = i2 + 1;
+								else begin
+									i2 = 5; // shifting will be realized here
+									buffer2[0] <= buffer2[1];
+									buffer2[1] <= buffer2[2];
+									buffer2[2] <= buffer2[3];
+									buffer2[3] <= buffer2[4];
+									buffer2[4] <= buffer2[5];
+									buffer2[5] <= 0;
+									drops_reg <= drops_reg + 1;
 
-						  end
-				
-				2'b10 : begin
+							  end
+							 end
 					
-							buffer3[i3] <= {data[1:0], 1'b1};
-							if (i3 != 5)
-								i3 = i3 + 1;
-							else
-								i3 = 5; // shifting will be realized here
-								buffer3[0] <= buffer3[1];
-								buffer3[1] <= buffer3[2];
-								buffer3[2] <= buffer3[3];
-								buffer3[3] <= buffer3[4];
-								buffer3[4] <= buffer3[5];
-								buffer3[5] <= 0;
-								drops_reg <= drops_reg + 1;
-								
-						  end
-						  
-				2'b11 : begin
-					
-							buffer4[i4] <= {data[1:0], 1'b1};
-							if (i4 != 5)
-								i4 = i4 + 1;
-							else
-								i4 = 5; // shifting will be realized here
-								buffer4[0] <= buffer4[1];
-								buffer4[1] <= buffer4[2];
-								buffer4[2] <= buffer4[3];
-								buffer4[3] <= buffer4[4];
-								buffer4[4] <= buffer4[5];
-								buffer4[5] <= 0;
-								drops_reg <= drops_reg + 1;
-						  end
-			
-			endcase
+					2'b10 : begin
+						
+								buffer3[i3] <= {data[1:0], 1'b1};
+								if (i3 != 5)
+									i3 = i3 + 1;
+								else begin
+									i3 = 5; // shifting will be realized here
+									buffer3[0] <= buffer3[1];
+									buffer3[1] <= buffer3[2];
+									buffer3[2] <= buffer3[3];
+									buffer3[3] <= buffer3[4];
+									buffer3[4] <= buffer3[5];
+									buffer3[5] <= 0;
+									drops_reg <= drops_reg + 1;
+									
+							  end
+							 end
+							  
+					2'b11 : begin
+						
+								buffer4[i4] <= {data[1:0], 1'b1};
+								if (i4 != 5)
+									i4 = i4 + 1;
+								else begin
+									i4 = 5; // shifting will be realized here
+									buffer4[0] <= buffer4[1];
+									buffer4[1] <= buffer4[2];
+									buffer4[2] <= buffer4[3];
+									buffer4[3] <= buffer4[4];
+									buffer4[4] <= buffer4[5];
+									buffer4[5] <= 0;
+									drops_reg <= drops_reg + 1;
+							  end
+							 end
+				endcase
+			end
 		end
-			
 	end
 	
 	always@ (*) begin
@@ -196,7 +197,6 @@ output wire [17:0] buffer4_o, output wire [3:0] dataaa, output wire drops, outpu
 			end
 			data_reg <= data;
 	end
-	
 	
 	assign buffer1_o = buffer1_reg;
 	assign buffer2_o = buffer2_reg;
