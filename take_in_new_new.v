@@ -2,9 +2,9 @@ module take_in_new_new
 #( parameter threshold = 3)
 (input start, input clk, // 50 MHz
 input key0, input key1, input swa,
-   output o_hsync,      // horizontal sync
-	output o_vsync,	     // vertical sync
-	output wire [7:0] o_color,  
+   output o_hsync, // horizontal sync
+	output o_vsync, // vertical sync
+	output wire [7:0] o_color,
 	output reg clk25MHz);
 	
 	integer k, h, readNow;
@@ -12,6 +12,10 @@ input key0, input key1, input swa,
 	parameter loc_x2 = 255;
 	parameter loc_x3 = 315;
 	parameter loc_x4 = 375;
+	
+	reg [6:0] reada_total;
+	reg [6:0] drops_total;
+	reg [6:0] received_data_total;
 	
 	reg [6:0] reada_b1;
 	reg [6:0] drops_b1;
@@ -30,32 +34,39 @@ input key0, input key1, input swa,
 	reg [6:0] received_data_b4;
 	
 	reg [3:0] reada_b11;
-	reg [2:0] reada_b12;
+	reg [3:0] reada_b12;
 	reg [3:0] drops_b11;
-	reg [2:0] drops_b12;
+	reg [3:0] drops_b12;
 	reg [3:0] received_data_b11;
-	reg [2:0] received_data_b12;
+	reg [3:0] received_data_b12;
 
 	reg [3:0] reada_b21;
-	reg [2:0] reada_b22;	
+	reg [3:0] reada_b22;	
 	reg [3:0] drops_b21;
-	reg [2:0] drops_b22;	
+	reg [3:0] drops_b22;	
 	reg [3:0] received_data_b21;
-	reg [2:0] received_data_b22;
+	reg [3:0] received_data_b22;
 	
 	reg [3:0] reada_b31;
-	reg [2:0] reada_b32;	
+	reg [3:0] reada_b32;	
 	reg [3:0] drops_b31;
-	reg [2:0] drops_b32;	
+	reg [3:0] drops_b32;	
 	reg [3:0] received_data_b31;
-	reg [2:0] received_data_b32;
+	reg [3:0] received_data_b32;
 	
 	reg [3:0] reada_b41;
-	reg [2:0] reada_b42;	
+	reg [3:0] reada_b42;	
 	reg [3:0] drops_b41;
-	reg [2:0] drops_b42;	
+	reg [3:0] drops_b42;	
 	reg [3:0] received_data_b41;
-	reg [2:0] received_data_b42;
+	reg [3:0] received_data_b42;
+	
+	reg [3:0] reada_total1;
+	reg [3:0] reada_total2;
+	reg [3:0] drops_total1;
+	reg [3:0] drops_total2;
+	reg [3:0] received_data_total1;
+	reg [3:0] received_data_total2;
 	
 	parameter loc_y1 = 120;
 	parameter loc_y2 = 165;
@@ -79,7 +90,7 @@ input key0, input key1, input swa,
 	reg [5:0] rea_sc;
 	reg [5:0] lat_sc;
 	reg [3:0] data_reg;
-	reg pressed;
+	reg pressed; // this is for debouncing such that an internal delay is realized
 	reg [2:0] sizeB1, sizeB2, sizeB3, sizeB4;
 	reg [4:0] s1, s2, s3, s4;	
 	reg [9:0] counter_x = 0;  // horizontal counter
@@ -266,6 +277,17 @@ input key0, input key1, input swa,
 		received_data_b41 <= received_data_b4/10;
 		received_data_b42 <= received_data_b4%10;
 		
+		reada_total <= reada_b1 + reada_b2 + reada_b3 + reada_b4;
+		drops_total <= drops_b1 + drops_b2 + drops_b3 + drops_b4;
+		received_data_total <= received_data_b1 + received_data_b2 + received_data_b3 + received_data_b4;
+		
+		reada_total1 <= reada_total/10;
+		reada_total2 <= reada_total%10;		
+		drops_total1 <= drops_total/10;
+		drops_total2 <= drops_total%10;
+		received_data_total1 <= received_data_total/10;
+		received_data_total2 <= received_data_total%10;
+		
 		if(swa) readNow = readNow+1;
 		else readNow = 0;
 		
@@ -303,7 +325,7 @@ input key0, input key1, input swa,
 						buffer3_o[(sizeB3-1)*3]<=0;
 						buffer3_o[(sizeB3-1)*3+1]<=0;
 						buffer3_o[(sizeB3-1)*3+2]<=0;
-						sizeB3= sizeB3-1;
+						sizeB3 = sizeB3-1;
 						reada_b3 <= reada_b3 +1;
 					end
 					
@@ -470,25 +492,30 @@ input key0, input key1, input swa,
 						buffer1_o[2:0] = {data[1:0],1'b1};
 						sizeB1 <= sizeB1 +1;
 						received_data_b1 = received_data_b1 + 1;
-						if (sizeB1 > 6)
+						if (sizeB1 > 6) begin
 							drops_b1 = drops_b1 + 1;
+							sizeB1 <= 6;
+						end
 					end
 					2'b01:begin
 						buffer2_o[17:3]=buffer2_o[14:0];
 						buffer2_o[2:0] = {data[1:0],1'b1};
 						sizeB2 <= sizeB2 +1;
 						received_data_b2 = received_data_b2 + 1;
-						if (sizeB2 > 6)
+						if (sizeB2 > 6) begin
 							drops_b2 = drops_b2 + 1;
+							sizeB2 <= 6;
+						end
 					end
-					
 					2'b10:begin
 						buffer3_o[17:3]=buffer3_o[14:0];
 						buffer3_o[2:0] = {data[1:0],1'b1};
 						sizeB3 <= sizeB3 +1;
 						received_data_b3 = received_data_b3 + 1;
-						if (sizeB3 > 6)
+						if (sizeB3 > 6) begin
 							drops_b3 = drops_b3 + 1;
+							sizeB3 <= 6;
+						end
 					end
 					
 					2'b11:begin
@@ -496,8 +523,10 @@ input key0, input key1, input swa,
 						buffer4_o[2:0] = {data[1:0],1'b1};
 						sizeB4 <= sizeB4 +1;
 						received_data_b4 = received_data_b4 + 1;
-						if (sizeB4 > 6)
+						if (sizeB4 > 6) begin
 							drops_b4 = drops_b4 + 1;
+							sizeB4 <= 6;
+						end
 					end
 			endcase
 		end
