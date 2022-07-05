@@ -18,28 +18,24 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "07/02/2022 21:39:47"
+// Generated on "07/01/2022 13:35:20"
                                                                         
-// Verilog Self-Checking Test Bench (with test vectors) for design :    test
+// Verilog Self-Checking Test Bench (with test vectors) for design :    count
 // 
 // Simulation tool : 3rd Party
 // 
 
 `timescale 1 ps/ 1 ps
-module test_vlg_sample_tst(
-	key1,
-	key2,
-	start,
+module count_vlg_sample_tst(
+	clk,
 	sampler_tx
 );
-input  key1;
-input  key2;
-input  start;
+input  clk;
 output sampler_tx;
 
 reg sample;
 time current_time;
-always @(key1 or key2 or start)
+always @(clk)
                                                                                 
 begin                                                 
  if ($realtime > 0)                                   
@@ -58,20 +54,20 @@ end
 assign sampler_tx = sample;
 endmodule
 
-module test_vlg_check_tst (
-	data,
+module count_vlg_check_tst (
+	L1,
 	sampler_rx
 );
-input [3:0] data;
+input [2:0] L1;
 input sampler_rx;
 
-reg [3:0] data_expected;
+reg [2:0] L1_expected;
 
-reg [3:0] data_prev;
+reg [2:0] L1_prev;
 
-reg [3:0] data_expected_prev;
+reg [2:0] L1_expected_prev;
 
-reg [3:0] last_data_exp;
+reg [2:0] last_L1_exp;
 
 reg trigger;
 
@@ -93,39 +89,34 @@ end
 
 always @(trigger)
 begin
-	data_prev = data;
+	L1_prev = L1;
 end
 
 // update expected /o prevs
 
 always @(trigger)
 begin
-	data_expected_prev = data_expected;
+	L1_expected_prev = L1_expected;
 end
 
 
-// expected data[ 3 ]
+// expected L1[ 2 ]
 initial
 begin
-	data_expected[3] = 1'bX;
+	L1_expected[2] = 1'bX;
 end 
-// expected data[ 2 ]
+// expected L1[ 1 ]
 initial
 begin
-	data_expected[2] = 1'bX;
+	L1_expected[1] = 1'bX;
 end 
-// expected data[ 1 ]
+// expected L1[ 0 ]
 initial
 begin
-	data_expected[1] = 1'bX;
-end 
-// expected data[ 0 ]
-initial
-begin
-	data_expected[0] = 1'bX;
+	L1_expected[0] = 1'bX;
 end 
 // generate trigger
-always @(data_expected or data)
+always @(L1_expected or L1)
 begin
 	trigger <= ~trigger;
 end
@@ -135,60 +126,47 @@ begin
 `ifdef debug_tbench
 	$display("Scanning pattern %d @time = %t",i,$realtime );
 	i = i + 1;
-	$display("| expected data = %b | ",data_expected_prev);
-	$display("| real data = %b | ",data_prev);
+	$display("| expected L1 = %b | ",L1_expected_prev);
+	$display("| real L1 = %b | ",L1_prev);
 `endif
 	if (
-		( data_expected_prev[0] !== 1'bx ) && ( data_prev[0] !== data_expected_prev[0] )
-		&& ((data_expected_prev[0] !== last_data_exp[0]) ||
+		( L1_expected_prev[0] !== 1'bx ) && ( L1_prev[0] !== L1_expected_prev[0] )
+		&& ((L1_expected_prev[0] !== last_L1_exp[0]) ||
 			on_first_change[1])
 	)
 	begin
-		$display ("ERROR! Vector Mismatch for output port data[0] :: @time = %t",  $realtime);
-		$display ("     Expected value = %b", data_expected_prev);
-		$display ("     Real value = %b", data_prev);
+		$display ("ERROR! Vector Mismatch for output port L1[0] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", L1_expected_prev);
+		$display ("     Real value = %b", L1_prev);
 		nummismatches = nummismatches + 1;
 		on_first_change[1] = 1'b0;
-		last_data_exp[0] = data_expected_prev[0];
+		last_L1_exp[0] = L1_expected_prev[0];
 	end
 	if (
-		( data_expected_prev[1] !== 1'bx ) && ( data_prev[1] !== data_expected_prev[1] )
-		&& ((data_expected_prev[1] !== last_data_exp[1]) ||
+		( L1_expected_prev[1] !== 1'bx ) && ( L1_prev[1] !== L1_expected_prev[1] )
+		&& ((L1_expected_prev[1] !== last_L1_exp[1]) ||
 			on_first_change[1])
 	)
 	begin
-		$display ("ERROR! Vector Mismatch for output port data[1] :: @time = %t",  $realtime);
-		$display ("     Expected value = %b", data_expected_prev);
-		$display ("     Real value = %b", data_prev);
+		$display ("ERROR! Vector Mismatch for output port L1[1] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", L1_expected_prev);
+		$display ("     Real value = %b", L1_prev);
 		nummismatches = nummismatches + 1;
 		on_first_change[1] = 1'b0;
-		last_data_exp[1] = data_expected_prev[1];
+		last_L1_exp[1] = L1_expected_prev[1];
 	end
 	if (
-		( data_expected_prev[2] !== 1'bx ) && ( data_prev[2] !== data_expected_prev[2] )
-		&& ((data_expected_prev[2] !== last_data_exp[2]) ||
+		( L1_expected_prev[2] !== 1'bx ) && ( L1_prev[2] !== L1_expected_prev[2] )
+		&& ((L1_expected_prev[2] !== last_L1_exp[2]) ||
 			on_first_change[1])
 	)
 	begin
-		$display ("ERROR! Vector Mismatch for output port data[2] :: @time = %t",  $realtime);
-		$display ("     Expected value = %b", data_expected_prev);
-		$display ("     Real value = %b", data_prev);
+		$display ("ERROR! Vector Mismatch for output port L1[2] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", L1_expected_prev);
+		$display ("     Real value = %b", L1_prev);
 		nummismatches = nummismatches + 1;
 		on_first_change[1] = 1'b0;
-		last_data_exp[2] = data_expected_prev[2];
-	end
-	if (
-		( data_expected_prev[3] !== 1'bx ) && ( data_prev[3] !== data_expected_prev[3] )
-		&& ((data_expected_prev[3] !== last_data_exp[3]) ||
-			on_first_change[1])
-	)
-	begin
-		$display ("ERROR! Vector Mismatch for output port data[3] :: @time = %t",  $realtime);
-		$display ("     Expected value = %b", data_expected_prev);
-		$display ("     Real value = %b", data_prev);
-		nummismatches = nummismatches + 1;
-		on_first_change[1] = 1'b0;
-		last_data_exp[3] = data_expected_prev[3];
+		last_L1_exp[2] = L1_expected_prev[2];
 	end
 
 	trigger <= ~trigger;
@@ -197,7 +175,7 @@ initial
 
 begin 
 $timeformat(-12,3," ps",6);
-#480000;
+#960000;
 if (nummismatches > 0)
 	$display ("%d mismatched vectors : Simulation failed !",nummismatches);
 else
@@ -206,59 +184,29 @@ $finish;
 end 
 endmodule
 
-module test_vlg_vec_tst();
+module count_vlg_vec_tst();
 // constants                                           
 // general purpose registers
-reg key1;
-reg key2;
-reg start;
+reg clk;
 // wires                                               
-wire [3:0] data;
+wire [2:0] L1;
 
 wire sampler;                             
 
 // assign statements (if any)                          
-test i1 (
+count i1 (
 // port map - connection between master ports and signals/registers   
-	.data(data),
-	.key1(key1),
-	.key2(key2),
-	.start(start)
+	.L1(L1),
+	.clk(clk)
 );
 
-// start
-initial
-begin
-	start = 1'b0;
-	start = #30000 1'b1;
-	start = #30000 1'b0;
-end 
-
-// key1
-initial
-begin
-	key1 = 1'b0;
-	key1 = #90000 1'b1;
-	key1 = #60000 1'b0;
-end 
-
-// key2
-initial
-begin
-	key2 = 1'b0;
-	key2 = #30000 1'b1;
-	key2 = #60000 1'b0;
-end 
-
-test_vlg_sample_tst tb_sample (
-	.key1(key1),
-	.key2(key2),
-	.start(start),
+count_vlg_sample_tst tb_sample (
+	.clk(clk),
 	.sampler_tx(sampler)
 );
 
-test_vlg_check_tst tb_out(
-	.data(data),
+count_vlg_check_tst tb_out(
+	.L1(L1),
 	.sampler_rx(sampler)
 );
 endmodule

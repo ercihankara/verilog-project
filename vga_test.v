@@ -1,176 +1,3 @@
-<<<<<<< HEAD
-`include "C:/Users/ercih/Desktop/project/count.v"
-`include "C:/Users/ercih/Desktop/project/score.v"
-`include "C:/Users/ercih/Desktop/project/freqdivider.v"
-
-module read
-#(
-    parameter threshold = 3
-)
-(input clk, output reg [1:0] disp, input [17:0] buffer1_o, input [17:0] buffer2_o, input [17:0] buffer3_o, input [17:0] buffer4_o,
-output reg [17:0] buffer1_open, output reg [17:0] buffer2_open,
-output reg [17:0] buffer3_open, output reg [17:0] buffer4_open);
-
-// take input bitwise then create the buffers inside the module again
-
-//	output reg [17:0] buffer1_open;
-//	output reg [17:0] buffer2_open;
-//	output reg [17:0] buffer3_open;
-//	output reg [17:0] buffer4_open;
-
-	initial begin
-		buffer1_open <= buffer1_o;
-		buffer2_open <= buffer2_o;
-		buffer3_open <= buffer3_o;
-		buffer4_open <= buffer4_o;
-	end
-
-	reg [2:0] buffer1_r [5:0];
-	reg [2:0] buffer2_r [5:0];
-	reg [2:0] buffer3_r [5:0];
-	reg [2:0] buffer4_r [5:0];
-	reg mode;
-	
-	wire [2:0] L1, L2, L3, L4;
-	wire [5:0] rea_sc;
-	wire [5:0] lat_sc;
-		
-	always@ (*) begin
-	
-		for (i = 0; i < 6; i = i+1) begin
-		
-			buffer1_r[i] <= buffer1_o[3*i+2 -:3];
-			buffer2_r[i] <= buffer2_o[3*i+2 -:3];
-			buffer3_r[i] <= buffer3_o[3*i+2 -:3];
-			buffer4_r[i] <= buffer4_o[3*i+2 -:3];
-			
-		end
-	end
-	// divide clock (50Hz) to get 3sec period
-	
-		
-	integer i = 0, m;
-// LSB of one 3-bit data is the validity bit 1-0
-	count counter(.buffer1_o (buffer1_o), .buffer2_o (buffer2_o), .buffer3_o (buffer3_o), .buffer4_o (buffer4_o), .L1 (L1), .L2 (L2), .L3 (L3), .L4 (L4));
-	score scorer(.L1 (L1), .L2 (L2), .L3 (L3), .L4 (L4), .RS (rea_sc), .LS (lat_sc));
-	freqdivider freqdividerer(.clk (clk), .clk_out (clk_divided));
-	
-	always@ (posedge clk) begin
-	
-		// Reliability Mode (mode 1)
-		// Latency Mode (mode 0)
-		
-		if(rea_sc < lat_sc)
-		
-			mode <= 0;
-			
-		else 
-		
-			mode <= 1;
-					
-		case(mode)
-		
-		1'b0: begin
-			
-			if(L1 > L2 && L1 > L3 && L1 > L4) begin
-					//shift1
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer1_open[m] <= buffer1_open[m+3];
-						// new empty space will be initialized to 0
-					end
-					
-					disp <= buffer1_r[0][2:1];
-					buffer1_open[0] <= 1'b0;
-					
-				end
-				
-				else if(L2 > L1 && L2 > L3 && L2 > L4) begin
-					//shift2
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer2_open[m] <= buffer2_open[m+3];
-					end
-					
-					disp <= buffer2_r[0][2:1];
-					buffer2_open[0] <= 1'b0;
-					
-				end
-				
-				else if(L3 > L4) begin
-					//shift3
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer3_open[m] <= buffer3_open[m+3];
-						buffer3_open[m+3] <= 0;
-					end
-
-					disp <= buffer3_r[0][2:1];
-					buffer3_open[0] <= 1'b0;
-					
-				end
-					
-				else begin
-					//shift4
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer4_open[m] <= buffer4_open[m+3];
-					end
-					
-					disp <= buffer4_r[0][2:1];
-					buffer4_open[0] <= 1'b0;
-					
-				end
-			end			
-		
-		1'b1: begin
-			
-			if(L4 > L1 && L4 > L2 && L4 > L3) begin
-					//shift4
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer4_open[m] <= buffer4_open[m+3];
-					end
-					
-					disp <= buffer4_r[0][2:1];
-					buffer4_open[0] <= 1'b0;
-					
-				end
-				
-				else if(L3>L1 && L3>L2 && L3>L4) begin
-					//shift3
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer3_open[m] <= buffer3_open[m+3];
-					end
-				
-					disp <= buffer3_r[0][2:1];
-					buffer3_open[0] <= 1'b0;
-					
-				end
-				
-				else if(L2>L1) begin
-					//shift2
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer2_open[m] <= buffer2_open[m+3];
-					end
-					
-					disp <= buffer2_r[0][2:1];
-					buffer2_open[0] <= 1'b0;
-					
-				end
-				
-				else begin
-					//shift1
-					for(m = 0; m < 15; m = m + 1) begin
-						buffer1_open[m] <= buffer1_open[m+3];
-					end
-					
-					disp <= buffer1_r[0][2:1];
-					buffer1_open[0] <= 1'b0;
-					
-				end
-			end
-
-		endcase
-	end
-
-endmodule
-=======
 `timescale 1ns / 1ps
 
 module vga_test(
@@ -228,14 +55,25 @@ reg [7:0] k0 [0:483];
 reg [7:0] inp [0:1224];
 reg [7:0] read[0:1224];
 
+//reg [7:0] zero[0:683];
+//reg [7:0] one[0:683];
+//reg [7:0] two[0:683];
+//reg [7:0] three[0:683];
+//reg [7:0] four[0:683];
+//reg [7:0] five[0:683];
+//reg [7:0] six[0:683];
+//reg [7:0] seven[0:683];
+//reg [7:0] eight[0:683];
+//reg [7:0] nine[0:683];
+
 //reg [7:0] b1title [0:224];
 //reg [7:0] b2title [0:224];
 //reg [7:0] b3title [0:224];
 //reg [7:0] b4title [0:224];   	
 
-reg [7:0] trans [0:1224];
-reg [7:0] receive [0:1224];
-reg [7:0] drop [0:1224];
+reg [7:0] trans [0:2449];
+reg [7:0] receive [0:2449];
+reg [7:0] drop [0:2449];
 
 reg reset = 0;  // for PLL
 
@@ -264,6 +102,17 @@ reg [3:0] oku = 4'b1010;
 		$readmemh ("input.txt", inp);
 		$readmemh ("keyone.txt", k1);
 		$readmemh ("keyzero.txt", k0);
+		
+//		$readmemh ("zero.txt", zero);
+//		$readmemh ("one.txt", one);
+//		$readmemh ("two.txt", two);
+//		$readmemh ("three.txt", three);
+//		$readmemh ("four.txt", four);
+//		$readmemh ("five.txt", five);
+//		$readmemh ("six.txt", six);
+//		$readmemh ("seven.txt", seven);
+//		$readmemh ("eight.txt", eight);
+//		$readmemh ("nine.txt", nine);
 		
 //		$readmemh ("b1title.txt", b1title);
 //		$readmemh ("b2title.txt", b2title);
@@ -427,6 +276,18 @@ reg [3:0] oku = 4'b1010;
 	//				end
 	//		end
 			
+			else if(counter_x >= 600 && counter_x < 670 && counter_y >= 380 && counter_y < 415)begin
+				color<=drop[((counter_x-600)*35 + counter_y-380)];			
+			end
+			
+			else if(counter_x >= 600 && counter_x < 670 && counter_y >= 250 && counter_y < 285)begin
+				color<=receive[((counter_x-600)*35 + counter_y-250)];
+			end
+			
+			else if(counter_x >= 600 && counter_x < 670 && counter_y >= 120 && counter_y < 155)begin
+				color<=trans[((counter_x-600)*35 + counter_y-120)];
+			end
+//			
 			// FIRST BUFFER
 			
 			else if(counter_x>= loc_x1 && counter_x < loc_x1 + delta)begin
@@ -744,17 +605,71 @@ reg [3:0] oku = 4'b1010;
 		
 	//		
 				
-			// RHS WRITINGS
-			else if(counter_x >= 640 && counter_x < 675 && counter_y >= 120 && counter_y < 155)begin
-				color<=trans[((counter_x-640)*35 + counter_y-120)];
+			/// RHS WRITINGS
+			//TRANSMITTED
+		
+			else if (counter_x >= 500 && counter_x < 535 && counter_y >= 165 && counter_y < 200)begin
+				color <= empty[{(counter_x - 500) * 35 + counter_y - 165}];
 			end
-				
-			else if(counter_x >= 640 && counter_x < 675 && counter_y >= 250 && counter_y < 285)begin
-				color<=receive[((counter_x-640)*35 + counter_y-250)];
+			
+			else if (counter_x >= 545 && counter_x < 580 && counter_y >= 165 && counter_y < 200)begin
+				color <= empty[{(counter_x - 545) * 35 + counter_y - 165}];
 			end
-				
-			else if(counter_x >= 640 && counter_x < 675 && counter_y >= 380 && counter_y < 415)begin
-				color<=drop[((counter_x-640)*35 + counter_y-380)];			
+			
+			else if (counter_x >= 590 && counter_x < 625 && counter_y >= 165 && counter_y < 200)begin
+				color <= empty[{(counter_x - 590) * 35 + counter_y - 165}];
+			end
+			
+			else if (counter_x >= 635 && counter_x < 670 && counter_y >= 165 && counter_y < 200)begin
+				color <= empty[{(counter_x - 635) * 35 + counter_y - 165}];
+			end
+			
+			else if (counter_x >= 680 && counter_x < 715 && counter_y >= 165 && counter_y < 200)begin
+				color <= empty[{(counter_x - 680) * 35 + counter_y - 165}];
+			end
+			
+			//RECEIVED
+			
+			else if (counter_x >= 500 && counter_x < 535 && counter_y >= 295 && counter_y < 330)begin
+				color <= empty[{(counter_x - 500) * 35 + counter_y - 295}];
+			end
+			
+			else if (counter_x >= 545 && counter_x < 580 && counter_y >= 295 && counter_y < 330)begin
+				color <= empty[{(counter_x - 545) * 35 + counter_y - 295}];
+			end
+			
+			else if (counter_x >= 590 && counter_x < 625 && counter_y >= 295 && counter_y < 330)begin
+				color <= empty[{(counter_x - 590) * 35 + counter_y - 295}];
+			end
+			
+			else if (counter_x >= 635 && counter_x < 670 && counter_y >= 295 && counter_y < 330)begin
+				color <= empty[{(counter_x - 635) * 35 + counter_y - 295}];
+			end
+			
+			else if (counter_x >= 680 && counter_x < 715 && counter_y >= 295 && counter_y < 330)begin
+				color <= empty[{(counter_x - 680) * 35 + counter_y - 295}];
+			end
+			
+			// DROPPED
+			
+			else if (counter_x >= 500 && counter_x < 535 && counter_y >= 425 && counter_y < 460)begin
+				color <= empty[{(counter_x - 500) * 35 + counter_y - 425}];
+			end
+			
+			else if (counter_x >= 545 && counter_x < 580 && counter_y >= 425 && counter_y < 460)begin
+				color <= empty[{(counter_x - 545) * 35 + counter_y - 425}];
+			end
+			
+			else if (counter_x >= 590 && counter_x < 625 && counter_y >= 425 && counter_y < 460)begin
+				color <= empty[{(counter_x - 590) * 35 + counter_y - 425}];
+			end
+			
+			else if (counter_x >= 635 && counter_x < 670 && counter_y >= 425 && counter_y < 460)begin
+				color <= empty[{(counter_x - 635) * 35 + counter_y - 425}];
+			end
+			
+			else if (counter_x >= 680 && counter_x < 715 && counter_y >= 425 && counter_y < 460)begin
+				color <= empty[{(counter_x - 680) * 35 + counter_y - 425}];
 			end
 			
 			else begin color <=8'h0;
@@ -764,4 +679,3 @@ reg [3:0] oku = 4'b1010;
 	assign o_color = (counter_x > 144 && counter_x <= 783 && counter_y > 35 && counter_y <= 514) ? color : 8'h0;
 		
 	endmodule
->>>>>>> dd61c8cc30af4ccc5fbf89e34d6cdaecb4213cc2
