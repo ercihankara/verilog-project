@@ -6,12 +6,16 @@ entity take_in is
         clk             : in     vl_logic;
         key0            : in     vl_logic;
         key1            : in     vl_logic;
-        buffer1_o       : out    vl_logic_vector(17 downto 0);
-        buffer2_o       : out    vl_logic_vector(17 downto 0);
-        buffer3_o       : out    vl_logic_vector(17 downto 0);
-        buffer4_o       : out    vl_logic_vector(17 downto 0);
-        dataaa          : out    vl_logic_vector(3 downto 0);
+        data            : out    vl_logic_vector(4 downto 0);
         drops           : out    vl_logic;
-        received_data   : out    vl_logic
+        received_data   : out    vl_logic;
+        buffer1         : out    vl_logic_vector(18 downto 0);
+        buffer2         : out    vl_logic_vector(18 downto 0);
+        buffer3         : out    vl_logic_vector(18 downto 0);
+        buffer4         : out    vl_logic_vector(18 downto 0);
+        opener          : out    vl_logic;
+        holder          : out    vl_logic_vector(3 downto 0);
+        outputer        : out    vl_logic_vector(4 downto 0);
+        swa             : in     vl_logic
     );
 end take_in;

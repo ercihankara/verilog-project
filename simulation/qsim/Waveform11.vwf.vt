@@ -1,0 +1,615 @@
+// Copyright (C) 1991-2013 Altera Corporation
+// Your use of Altera Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Altera Program License 
+// Subscription Agreement, Altera MegaCore Function License 
+// Agreement, or other applicable license agreement, including, 
+// without limitation, that your use is for the sole purpose of 
+// programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the 
+// applicable agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench with test vectors .The test vectors  
+// are exported from a vector file in the Quartus Waveform Editor and apply to  
+// the top level entity of the current Quartus project .The user can use this   
+// testbench to simulate his design using a third-party simulation tool .       
+// *****************************************************************************
+// Generated on "07/04/2022 16:16:54"
+                                                                        
+// Verilog Self-Checking Test Bench (with test vectors) for design :    read_new
+// 
+// Simulation tool : 3rd Party
+// 
+
+`timescale 1 ps/ 1 ps
+module read_new_vlg_sample_tst(
+	buffer1_o,
+	buffer2_o,
+	buffer3_o,
+	buffer4_o,
+	clk,
+	sampler_tx
+);
+input [17:0] buffer1_o;
+input [17:0] buffer2_o;
+input [17:0] buffer3_o;
+input [17:0] buffer4_o;
+input  clk;
+output sampler_tx;
+
+reg sample;
+time current_time;
+always @(buffer1_o or buffer2_o or buffer3_o or buffer4_o or clk)
+                                                                                
+begin                                                 
+ if ($realtime > 0)                                   
+ begin                                                
+	if ($realtime == 0 || $realtime != current_time)  
+	begin									          
+		if (sample === 1'bx)                          
+			sample = 0;                               
+		else                                          
+			sample = ~sample;                         
+	end										          
+	current_time = $realtime;					      
+ end                                                  
+end                                                   
+
+assign sampler_tx = sample;
+endmodule
+
+module read_new_vlg_check_tst (
+	buffer1_open,
+	buffer2_open,
+	buffer3_open,
+	buffer4_open,
+	disp,
+	sampler_rx
+);
+input [17:0] buffer1_open;
+input [17:0] buffer2_open;
+input [17:0] buffer3_open;
+input [17:0] buffer4_open;
+input [1:0] disp;
+input sampler_rx;
+
+reg [17:0] buffer1_open_expected;
+reg [17:0] buffer2_open_expected;
+reg [17:0] buffer3_open_expected;
+reg [17:0] buffer4_open_expected;
+reg [1:0] disp_expected;
+
+reg [17:0] buffer1_open_prev;
+reg [17:0] buffer2_open_prev;
+reg [17:0] buffer3_open_prev;
+reg [17:0] buffer4_open_prev;
+reg [1:0] disp_prev;
+
+reg [1:0] disp_expected_prev;
+
+reg [1:0] last_disp_exp;
+
+reg trigger;
+
+integer i;
+integer nummismatches;
+
+reg [1:5] on_first_change ;
+
+
+initial
+begin
+trigger = 0;
+i = 0;
+nummismatches = 0;
+on_first_change = 5'b1;
+end
+
+// update real /o prevs
+
+always @(trigger)
+begin
+	buffer1_open_prev = buffer1_open;
+	buffer2_open_prev = buffer2_open;
+	buffer3_open_prev = buffer3_open;
+	buffer4_open_prev = buffer4_open;
+	disp_prev = disp;
+end
+
+// update expected /o prevs
+
+always @(trigger)
+begin
+	disp_expected_prev = disp_expected;
+end
+
+
+// expected disp[ 1 ]
+initial
+begin
+	disp_expected[1] = 1'bX;
+end 
+// expected disp[ 0 ]
+initial
+begin
+	disp_expected[0] = 1'bX;
+end 
+// generate trigger
+always @(buffer1_open_expected or buffer1_open or buffer2_open_expected or buffer2_open or buffer3_open_expected or buffer3_open or buffer4_open_expected or buffer4_open or disp_expected or disp)
+begin
+	trigger <= ~trigger;
+end
+
+always @(posedge sampler_rx or negedge sampler_rx)
+begin
+`ifdef debug_tbench
+	$display("Scanning pattern %d @time = %t",i,$realtime );
+	i = i + 1;
+	$display("| expected buffer1_open = %b | expected buffer2_open = %b | expected buffer3_open = %b | expected buffer4_open = %b | expected disp = %b | ",buffer1_open_expected_prev,buffer2_open_expected_prev,buffer3_open_expected_prev,buffer4_open_expected_prev,disp_expected_prev);
+	$display("| real buffer1_open = %b | real buffer2_open = %b | real buffer3_open = %b | real buffer4_open = %b | real disp = %b | ",buffer1_open_prev,buffer2_open_prev,buffer3_open_prev,buffer4_open_prev,disp_prev);
+`endif
+	if (
+		( disp_expected_prev[0] !== 1'bx ) && ( disp_prev[0] !== disp_expected_prev[0] )
+		&& ((disp_expected_prev[0] !== last_disp_exp[0]) ||
+			on_first_change[5])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port disp[0] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", disp_expected_prev);
+		$display ("     Real value = %b", disp_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[5] = 1'b0;
+		last_disp_exp[0] = disp_expected_prev[0];
+	end
+	if (
+		( disp_expected_prev[1] !== 1'bx ) && ( disp_prev[1] !== disp_expected_prev[1] )
+		&& ((disp_expected_prev[1] !== last_disp_exp[1]) ||
+			on_first_change[5])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port disp[1] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", disp_expected_prev);
+		$display ("     Real value = %b", disp_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[5] = 1'b0;
+		last_disp_exp[1] = disp_expected_prev[1];
+	end
+
+	trigger <= ~trigger;
+end
+initial 
+
+begin 
+$timeformat(-12,3," ps",6);
+#480000;
+if (nummismatches > 0)
+	$display ("%d mismatched vectors : Simulation failed !",nummismatches);
+else
+	$display ("Simulation passed !");
+$finish;
+end 
+endmodule
+
+module read_new_vlg_vec_tst();
+// constants                                           
+// general purpose registers
+reg [17:0] buffer1_o;
+reg [17:0] buffer2_o;
+reg [17:0] buffer3_o;
+reg [17:0] buffer4_o;
+reg clk;
+// wires                                               
+wire [17:0] buffer1_open;
+wire [17:0] buffer2_open;
+wire [17:0] buffer3_open;
+wire [17:0] buffer4_open;
+wire [1:0] disp;
+
+wire sampler;                             
+
+// assign statements (if any)                          
+read_new i1 (
+// port map - connection between master ports and signals/registers   
+	.buffer1_o(buffer1_o),
+	.buffer1_open(buffer1_open),
+	.buffer2_o(buffer2_o),
+	.buffer2_open(buffer2_open),
+	.buffer3_o(buffer3_o),
+	.buffer3_open(buffer3_open),
+	.buffer4_o(buffer4_o),
+	.buffer4_open(buffer4_open),
+	.clk(clk),
+	.disp(disp)
+);
+
+// clk
+always
+begin
+	clk = 1'b0;
+	clk = #15000 1'b1;
+	#15000;
+end 
+// buffer1_o[ 17 ]
+initial
+begin
+	buffer1_o[17] = 1'b1;
+end 
+// buffer1_o[ 16 ]
+initial
+begin
+	buffer1_o[16] = 1'b1;
+end 
+// buffer1_o[ 15 ]
+initial
+begin
+	buffer1_o[15] = 1'b1;
+end 
+// buffer1_o[ 14 ]
+initial
+begin
+	buffer1_o[14] = 1'b1;
+end 
+// buffer1_o[ 13 ]
+initial
+begin
+	buffer1_o[13] = 1'b1;
+end 
+// buffer1_o[ 12 ]
+initial
+begin
+	buffer1_o[12] = 1'b1;
+end 
+// buffer1_o[ 11 ]
+initial
+begin
+	buffer1_o[11] = 1'b1;
+end 
+// buffer1_o[ 10 ]
+initial
+begin
+	buffer1_o[10] = 1'b1;
+end 
+// buffer1_o[ 9 ]
+initial
+begin
+	buffer1_o[9] = 1'b1;
+end 
+// buffer1_o[ 8 ]
+initial
+begin
+	buffer1_o[8] = 1'b1;
+end 
+// buffer1_o[ 7 ]
+initial
+begin
+	buffer1_o[7] = 1'b1;
+end 
+// buffer1_o[ 6 ]
+initial
+begin
+	buffer1_o[6] = 1'b1;
+end 
+// buffer1_o[ 5 ]
+initial
+begin
+	buffer1_o[5] = 1'b1;
+end 
+// buffer1_o[ 4 ]
+initial
+begin
+	buffer1_o[4] = 1'b1;
+end 
+// buffer1_o[ 3 ]
+initial
+begin
+	buffer1_o[3] = 1'b1;
+end 
+// buffer1_o[ 2 ]
+initial
+begin
+	buffer1_o[2] = 1'b1;
+end 
+// buffer1_o[ 1 ]
+initial
+begin
+	buffer1_o[1] = 1'b1;
+end 
+// buffer1_o[ 0 ]
+initial
+begin
+	buffer1_o[0] = 1'b1;
+end 
+// buffer2_o[ 17 ]
+initial
+begin
+	buffer2_o[17] = 1'b0;
+end 
+// buffer2_o[ 16 ]
+initial
+begin
+	buffer2_o[16] = 1'b0;
+end 
+// buffer2_o[ 15 ]
+initial
+begin
+	buffer2_o[15] = 1'b0;
+end 
+// buffer2_o[ 14 ]
+initial
+begin
+	buffer2_o[14] = 1'b0;
+end 
+// buffer2_o[ 13 ]
+initial
+begin
+	buffer2_o[13] = 1'b0;
+end 
+// buffer2_o[ 12 ]
+initial
+begin
+	buffer2_o[12] = 1'b0;
+end 
+// buffer2_o[ 11 ]
+initial
+begin
+	buffer2_o[11] = 1'b0;
+end 
+// buffer2_o[ 10 ]
+initial
+begin
+	buffer2_o[10] = 1'b0;
+end 
+// buffer2_o[ 9 ]
+initial
+begin
+	buffer2_o[9] = 1'b0;
+end 
+// buffer2_o[ 8 ]
+initial
+begin
+	buffer2_o[8] = 1'b0;
+end 
+// buffer2_o[ 7 ]
+initial
+begin
+	buffer2_o[7] = 1'b0;
+end 
+// buffer2_o[ 6 ]
+initial
+begin
+	buffer2_o[6] = 1'b0;
+end 
+// buffer2_o[ 5 ]
+initial
+begin
+	buffer2_o[5] = 1'b0;
+end 
+// buffer2_o[ 4 ]
+initial
+begin
+	buffer2_o[4] = 1'b0;
+end 
+// buffer2_o[ 3 ]
+initial
+begin
+	buffer2_o[3] = 1'b0;
+end 
+// buffer2_o[ 2 ]
+initial
+begin
+	buffer2_o[2] = 1'b0;
+end 
+// buffer2_o[ 1 ]
+initial
+begin
+	buffer2_o[1] = 1'b0;
+end 
+// buffer2_o[ 0 ]
+initial
+begin
+	buffer2_o[0] = 1'b0;
+end 
+// buffer3_o[ 17 ]
+initial
+begin
+	buffer3_o[17] = 1'b0;
+end 
+// buffer3_o[ 16 ]
+initial
+begin
+	buffer3_o[16] = 1'b0;
+end 
+// buffer3_o[ 15 ]
+initial
+begin
+	buffer3_o[15] = 1'b0;
+end 
+// buffer3_o[ 14 ]
+initial
+begin
+	buffer3_o[14] = 1'b0;
+end 
+// buffer3_o[ 13 ]
+initial
+begin
+	buffer3_o[13] = 1'b0;
+end 
+// buffer3_o[ 12 ]
+initial
+begin
+	buffer3_o[12] = 1'b0;
+end 
+// buffer3_o[ 11 ]
+initial
+begin
+	buffer3_o[11] = 1'b0;
+end 
+// buffer3_o[ 10 ]
+initial
+begin
+	buffer3_o[10] = 1'b0;
+end 
+// buffer3_o[ 9 ]
+initial
+begin
+	buffer3_o[9] = 1'b0;
+end 
+// buffer3_o[ 8 ]
+initial
+begin
+	buffer3_o[8] = 1'b0;
+end 
+// buffer3_o[ 7 ]
+initial
+begin
+	buffer3_o[7] = 1'b0;
+end 
+// buffer3_o[ 6 ]
+initial
+begin
+	buffer3_o[6] = 1'b0;
+end 
+// buffer3_o[ 5 ]
+initial
+begin
+	buffer3_o[5] = 1'b0;
+end 
+// buffer3_o[ 4 ]
+initial
+begin
+	buffer3_o[4] = 1'b0;
+end 
+// buffer3_o[ 3 ]
+initial
+begin
+	buffer3_o[3] = 1'b0;
+end 
+// buffer3_o[ 2 ]
+initial
+begin
+	buffer3_o[2] = 1'b0;
+end 
+// buffer3_o[ 1 ]
+initial
+begin
+	buffer3_o[1] = 1'b0;
+end 
+// buffer3_o[ 0 ]
+initial
+begin
+	buffer3_o[0] = 1'b0;
+end 
+// buffer4_o[ 17 ]
+initial
+begin
+	buffer4_o[17] = 1'b0;
+end 
+// buffer4_o[ 16 ]
+initial
+begin
+	buffer4_o[16] = 1'b0;
+end 
+// buffer4_o[ 15 ]
+initial
+begin
+	buffer4_o[15] = 1'b0;
+end 
+// buffer4_o[ 14 ]
+initial
+begin
+	buffer4_o[14] = 1'b0;
+end 
+// buffer4_o[ 13 ]
+initial
+begin
+	buffer4_o[13] = 1'b0;
+end 
+// buffer4_o[ 12 ]
+initial
+begin
+	buffer4_o[12] = 1'b0;
+end 
+// buffer4_o[ 11 ]
+initial
+begin
+	buffer4_o[11] = 1'b0;
+end 
+// buffer4_o[ 10 ]
+initial
+begin
+	buffer4_o[10] = 1'b0;
+end 
+// buffer4_o[ 9 ]
+initial
+begin
+	buffer4_o[9] = 1'b0;
+end 
+// buffer4_o[ 8 ]
+initial
+begin
+	buffer4_o[8] = 1'b0;
+end 
+// buffer4_o[ 7 ]
+initial
+begin
+	buffer4_o[7] = 1'b0;
+end 
+// buffer4_o[ 6 ]
+initial
+begin
+	buffer4_o[6] = 1'b0;
+end 
+// buffer4_o[ 5 ]
+initial
+begin
+	buffer4_o[5] = 1'b0;
+end 
+// buffer4_o[ 4 ]
+initial
+begin
+	buffer4_o[4] = 1'b0;
+end 
+// buffer4_o[ 3 ]
+initial
+begin
+	buffer4_o[3] = 1'b0;
+end 
+// buffer4_o[ 2 ]
+initial
+begin
+	buffer4_o[2] = 1'b0;
+end 
+// buffer4_o[ 1 ]
+initial
+begin
+	buffer4_o[1] = 1'b0;
+end 
+// buffer4_o[ 0 ]
+initial
+begin
+	buffer4_o[0] = 1'b0;
+end 
+
+read_new_vlg_sample_tst tb_sample (
+	.buffer1_o(buffer1_o),
+	.buffer2_o(buffer2_o),
+	.buffer3_o(buffer3_o),
+	.buffer4_o(buffer4_o),
+	.clk(clk),
+	.sampler_tx(sampler)
+);
+
+read_new_vlg_check_tst tb_out(
+	.buffer1_open(buffer1_open),
+	.buffer2_open(buffer2_open),
+	.buffer3_open(buffer3_open),
+	.buffer4_open(buffer4_open),
+	.disp(disp),
+	.sampler_rx(sampler)
+);
+endmodule
+

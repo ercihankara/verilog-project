@@ -11,7 +11,7 @@ output reg [2:0] L3, output reg [2:0] L4);
 		L3 = 0;
 		L4 = 0;
 
-		for(j = 0; j < 5; j = j + 1) begin
+		for(j = 0; j < 6; j = j + 1) begin
 
 			if(buffer1_o[3*j] == 1)
 				L1 = L1 + 1;

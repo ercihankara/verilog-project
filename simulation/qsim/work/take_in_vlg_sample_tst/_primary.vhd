@@ -6,6 +6,7 @@ entity take_in_vlg_sample_tst is
         key0            : in     vl_logic;
         key1            : in     vl_logic;
         start           : in     vl_logic;
+        swa             : in     vl_logic;
         sampler_tx      : out    vl_logic
     );
 end take_in_vlg_sample_tst;
