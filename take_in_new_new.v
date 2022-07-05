@@ -359,7 +359,6 @@ input key0, input key1, input swa,
 						reada_b1 <= reada_b1 +1;
 					end
 				
-				
 				end
 				
 				else begin
