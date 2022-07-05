@@ -1098,7 +1098,7 @@ always @(posedge clk25MHz)  // horizontal counter
 			end
 			
 			//buffer3
-			else if (counter_x >= 590 && counter_x < 619 && counter_y >= 165 && counter_y < 200)begin
+			else if (counter_x >= 590 && counter_x < 609 && counter_y >= 165 && counter_y < 200)begin
 					case(reada_b31)
 					0: color <= sifir[{(counter_x - 590) * 35 + counter_y - 165}];
 					1: color <= one[{(counter_x - 590) * 35 + counter_y - 165}];
@@ -1117,18 +1117,18 @@ always @(posedge clk25MHz)  // horizontal counter
 				
 			end
 			
-			else if (counter_x >= 619 && counter_x < 638 && counter_y >= 165 && counter_y < 200)begin
+			else if (counter_x >= 609 && counter_x < 628 && counter_y >= 165 && counter_y < 200)begin
 					case(reada_b32)
-					0: color <= sifir[{(counter_x - 619) * 35 + counter_y - 165}];
-					1: color <= one[{(counter_x - 619) * 35 + counter_y - 165}];
-					2: color <= two[{(counter_x - 619) * 35 + counter_y - 165}];
-					3: color <= three[{(counter_x - 619) * 35 + counter_y - 165}];
-					4: color <= four[{(counter_x - 619) * 35 + counter_y - 165}];
-					5: color <= five[{(counter_x - 619) * 35 + counter_y - 165}];
-					6: color <= six[{(counter_x - 619) * 35 + counter_y - 165}];
-					7: color <= seven[{(counter_x - 619) * 35 + counter_y - 165}];
-					8: color <= eight[{(counter_x - 619) * 35 + counter_y - 165}];
-					9: color <= nine[{(counter_x - 619) * 35 + counter_y - 165}];
+					0: color <= sifir[{(counter_x - 609) * 35 + counter_y - 165}];
+					1: color <= one[{(counter_x - 609) * 35 + counter_y - 165}];
+					2: color <= two[{(counter_x - 609) * 35 + counter_y - 165}];
+					3: color <= three[{(counter_x - 609) * 35 + counter_y - 165}];
+					4: color <= four[{(counter_x - 609) * 35 + counter_y - 165}];
+					5: color <= five[{(counter_x - 609) * 35 + counter_y - 165}];
+					6: color <= six[{(counter_x - 609) * 35 + counter_y - 165}];
+					7: color <= seven[{(counter_x - 609) * 35 + counter_y - 165}];
+					8: color <= eight[{(counter_x - 609) * 35 + counter_y - 165}];
+					9: color <= nine[{(counter_x - 609) * 35 + counter_y - 165}];
 					
 //					default : color <= sifir[{(counter_x - 619) * 35 + counter_y - 165}];
 									
@@ -1137,18 +1137,18 @@ always @(posedge clk25MHz)  // horizontal counter
 			end
 			
 			//buffer4
-			else if (counter_x >=645 && counter_x < 664 && counter_y >= 165 && counter_y < 200)begin
+			else if (counter_x >=635 && counter_x < 654 && counter_y >= 165 && counter_y < 200)begin
 					case(reada_b41)
-					0: color <= sifir[{(counter_x - 645) * 35 + counter_y - 165}];
-					1: color <= one[{(counter_x - 645) * 35 + counter_y - 165}];
-					2: color <= two[{(counter_x - 645) * 35 + counter_y - 165}];
-					3: color <= three[{(counter_x - 645) * 35 + counter_y - 165}];
-					4: color <= four[{(counter_x - 645) * 35 + counter_y - 165}];
-					5: color <= five[{(counter_x - 645) * 35 + counter_y - 165}];
-					6: color <= six[{(counter_x - 645) * 35 + counter_y - 165}];
-					7: color <= seven[{(counter_x - 645) * 35 + counter_y - 165}];
-					8: color <= eight[{(counter_x - 645) * 35 + counter_y - 165}];
-					9: color <= nine[{(counter_x - 645) * 35 + counter_y - 165}];
+					0: color <= sifir[{(counter_x - 635) * 35 + counter_y - 165}];
+					1: color <= one[{(counter_x - 635) * 35 + counter_y - 165}];
+					2: color <= two[{(counter_x - 635) * 35 + counter_y - 165}];
+					3: color <= three[{(counter_x - 635) * 35 + counter_y - 165}];
+					4: color <= four[{(counter_x - 635) * 35 + counter_y - 165}];
+					5: color <= five[{(counter_x - 635) * 35 + counter_y - 165}];
+					6: color <= six[{(counter_x - 635) * 35 + counter_y - 165}];
+					7: color <= seven[{(counter_x - 635) * 35 + counter_y - 165}];
+					8: color <= eight[{(counter_x - 635) * 35 + counter_y - 165}];
+					9: color <= nine[{(counter_x - 635) * 35 + counter_y - 165}];
 					
 //					default : color <= sifir[{(counter_x - 645) * 35 + counter_y - 165}];
 									
@@ -1156,18 +1156,18 @@ always @(posedge clk25MHz)  // horizontal counter
 				
 			end
 			
-			else if (counter_x >= 664 && counter_x < 683 && counter_y >= 165 && counter_y < 200)begin
+			else if (counter_x >= 654 && counter_x < 673 && counter_y >= 165 && counter_y < 200)begin
 				case(reada_b42)
-					0: color <= sifir[{(counter_x - 664) * 35 + counter_y - 165}];
-					1: color <= one[{(counter_x - 664) * 35 + counter_y - 165}];
-					2: color <= two[{(counter_x - 664) * 35 + counter_y - 165}];
-					3: color <= three[{(counter_x - 664) * 35 + counter_y - 165}];
-					4: color <= four[{(counter_x - 664) * 35 + counter_y - 165}];
-					5: color <= five[{(counter_x - 664) * 35 + counter_y - 165}];
-					6: color <= six[{(counter_x - 664) * 35 + counter_y - 165}];
-					7: color <= seven[{(counter_x - 664) * 35 + counter_y - 165}];
-					8: color <= eight[{(counter_x - 664) * 35 + counter_y - 165}];
-					9: color <= nine[{(counter_x - 664) * 35 + counter_y - 165}];
+					0: color <= sifir[{(counter_x - 654) * 35 + counter_y - 165}];
+					1: color <= one[{(counter_x - 654) * 35 + counter_y - 165}];
+					2: color <= two[{(counter_x - 654) * 35 + counter_y - 165}];
+					3: color <= three[{(counter_x - 654) * 35 + counter_y - 165}];
+					4: color <= four[{(counter_x - 654) * 35 + counter_y - 165}];
+					5: color <= five[{(counter_x - 654) * 35 + counter_y - 165}];
+					6: color <= six[{(counter_x - 654) * 35 + counter_y - 165}];
+					7: color <= seven[{(counter_x - 654) * 35 + counter_y - 165}];
+					8: color <= eight[{(counter_x - 654) * 35 + counter_y - 165}];
+					9: color <= nine[{(counter_x - 654) * 35 + counter_y - 165}];
 					
 //					default : color <= sifir[{(counter_x - 664) * 35 + counter_y - 165}];
 									
@@ -1313,7 +1313,7 @@ always @(posedge clk25MHz)  // horizontal counter
 			end
 			
 			//buffer3
-		else if (counter_x >= 590 && counter_x < 619 && counter_y >= 295 && counter_y < 330)begin
+		else if (counter_x >= 590 && counter_x < 609 && counter_y >= 295 && counter_y < 330)begin
 
 			case(received_data_b31)
 				0: color <= sifir[{(counter_x - 590) * 35 + counter_y - 295}];
@@ -1330,36 +1330,36 @@ always @(posedge clk25MHz)  // horizontal counter
 			endcase 
 			end
 			
-			else if (counter_x >= 619 && counter_x < 638 && counter_y >= 295 && counter_y < 330)begin
+			else if (counter_x >= 609 && counter_x < 628 && counter_y >= 295 && counter_y < 330)begin
 			case(received_data_b32)
-				0: color <= sifir[{(counter_x - 619) * 35 + counter_y - 295}];
-				1: color <= one[{(counter_x - 619) * 35 + counter_y - 295}];
-				2: color <= two[{(counter_x - 619) * 35 + counter_y - 295}];
-				3: color <= three[{(counter_x - 619) * 35 + counter_y - 295}];
-				4: color <= four[{(counter_x - 619) * 35 + counter_y - 295}];
-				5: color <= five[{(counter_x - 619) * 35 + counter_y - 295}];
-				6: color <= six[{(counter_x - 619) * 35 + counter_y - 295}];
-				7: color <= seven[{(counter_x - 619) * 35 + counter_y - 295}];
-				8: color <= eight[{(counter_x - 619) * 35 + counter_y - 295}];
-				9: color <= nine[{(counter_x - 619) * 35 + counter_y - 295}];
+				0: color <= sifir[{(counter_x - 609) * 35 + counter_y - 295}];
+				1: color <= one[{(counter_x - 609) * 35 + counter_y - 295}];
+				2: color <= two[{(counter_x - 609) * 35 + counter_y - 295}];
+				3: color <= three[{(counter_x - 609) * 35 + counter_y - 295}];
+				4: color <= four[{(counter_x - 609) * 35 + counter_y - 295}];
+				5: color <= five[{(counter_x - 609) * 35 + counter_y - 295}];
+				6: color <= six[{(counter_x - 609) * 35 + counter_y - 295}];
+				7: color <= seven[{(counter_x - 609) * 35 + counter_y - 295}];
+				8: color <= eight[{(counter_x - 609) * 35 + counter_y - 295}];
+				9: color <= nine[{(counter_x - 609) * 35 + counter_y - 295}];
 				
 //				default	: 	color <= sifir[{(counter_x - 619) * 35 + counter_y - 295}];		
 			endcase 
 			end
 			
 			//buffer4
-			else if (counter_x >=645 && counter_x < 664 && counter_y >= 295 && counter_y < 330)begin
+			else if (counter_x >=635 && counter_x < 654 && counter_y >= 295 && counter_y < 330)begin
 					case(received_data_b41)
-					0: color <= sifir[{(counter_x - 645) * 35 + counter_y - 295}];
-					1: color <= one[{(counter_x - 645) * 35 + counter_y - 295}];
-					2: color <= two[{(counter_x - 645) * 35 + counter_y - 295}];
-					3: color <= three[{(counter_x - 645) * 35 + counter_y - 295}];
-					4: color <= four[{(counter_x - 645) * 35 + counter_y - 295}];
-					5: color <= five[{(counter_x - 645) * 35 + counter_y - 295}];
-					6: color <= six[{(counter_x - 645) * 35 + counter_y - 295}];
-					7: color <= seven[{(counter_x - 645) * 35 + counter_y - 295}];
-					8: color <= eight[{(counter_x - 645) * 35 + counter_y - 295}];
-					9: color <= nine[{(counter_x - 645) * 35 + counter_y - 295}];
+					0: color <= sifir[{(counter_x - 635) * 35 + counter_y - 295}];
+					1: color <= one[{(counter_x - 635) * 35 + counter_y - 295}];
+					2: color <= two[{(counter_x - 635) * 35 + counter_y - 295}];
+					3: color <= three[{(counter_x - 635) * 35 + counter_y - 295}];
+					4: color <= four[{(counter_x - 635) * 35 + counter_y - 295}];
+					5: color <= five[{(counter_x - 635) * 35 + counter_y - 295}];
+					6: color <= six[{(counter_x - 635) * 35 + counter_y - 295}];
+					7: color <= seven[{(counter_x - 635) * 35 + counter_y - 295}];
+					8: color <= eight[{(counter_x - 635) * 35 + counter_y - 295}];
+					9: color <= nine[{(counter_x - 635) * 35 + counter_y - 295}];
 //					
 //					default : color <= sifir[{(counter_x - 645) * 35 + counter_y - 295}];
 									
@@ -1367,18 +1367,18 @@ always @(posedge clk25MHz)  // horizontal counter
 				
 			end
 			
-			else if (counter_x >= 664 && counter_x < 683 && counter_y >= 295 && counter_y < 330)begin
+			else if (counter_x >= 654 && counter_x < 673 && counter_y >= 295 && counter_y < 330)begin
 					case(received_data_b42)
-					0: color <= sifir[{(counter_x - 664) * 35 + counter_y - 295}];
-					1: color <= one[{(counter_x - 664) * 35 + counter_y - 295}];
-					2: color <= two[{(counter_x - 664) * 35 + counter_y - 295}];
-					3: color <= three[{(counter_x - 664) * 35 + counter_y - 295}];
-					4: color <= four[{(counter_x - 664) * 35 + counter_y - 295}];
-					5: color <= five[{(counter_x - 664) * 35 + counter_y - 295}];
-					6: color <= six[{(counter_x - 664) * 35 + counter_y - 295}];
-					7: color <= seven[{(counter_x - 664) * 35 + counter_y - 295}];
-					8: color <= eight[{(counter_x - 664) * 35 + counter_y - 295}];
-					9: color <= nine[{(counter_x - 664) * 35 + counter_y - 295}];
+					0: color <= sifir[{(counter_x - 654) * 35 + counter_y - 295}];
+					1: color <= one[{(counter_x - 654) * 35 + counter_y - 295}];
+					2: color <= two[{(counter_x - 654) * 35 + counter_y - 295}];
+					3: color <= three[{(counter_x - 654) * 35 + counter_y - 295}];
+					4: color <= four[{(counter_x - 654) * 35 + counter_y - 295}];
+					5: color <= five[{(counter_x - 654) * 35 + counter_y - 295}];
+					6: color <= six[{(counter_x - 654) * 35 + counter_y - 295}];
+					7: color <= seven[{(counter_x - 654) * 35 + counter_y - 295}];
+					8: color <= eight[{(counter_x - 654) * 35 + counter_y - 295}];
+					9: color <= nine[{(counter_x - 654) * 35 + counter_y - 295}];
 					
 //					default : color <= sifir[{(counter_x - 664) * 35 + counter_y - 295}];
 									
@@ -1523,7 +1523,7 @@ always @(posedge clk25MHz)  // horizontal counter
 			end
 			
 			//buffer3
-			else if (counter_x >= 590 && counter_x < 619 && counter_y >= 425 && counter_y < 460)begin
+			else if (counter_x >= 590 && counter_x < 609 && counter_y >= 425 && counter_y < 460)begin
 					case(drops_b31)
 					0: color <= sifir[{(counter_x - 590) * 35 + counter_y - 425}];
 					1: color <= one[{(counter_x - 590) * 35 + counter_y - 425}];
@@ -1542,18 +1542,18 @@ always @(posedge clk25MHz)  // horizontal counter
 		
 			end
 			
-			else if (counter_x >= 619 && counter_x < 638 && counter_y >= 425 && counter_y < 460)begin
+			else if (counter_x >= 609 && counter_x < 628 && counter_y >= 425 && counter_y < 460)begin
 					case(drops_b32)
-					0: color <= sifir[{(counter_x - 619) * 35 + counter_y - 425}];
-					1: color <= one[{(counter_x - 619) * 35 + counter_y - 425}];
-					2: color <= two[{(counter_x - 619) * 35 + counter_y - 425}];
-					3: color <= three[{(counter_x - 619) * 35 + counter_y - 425}];
-					4: color <= four[{(counter_x - 619) * 35 + counter_y - 425}];
-					5: color <= five[{(counter_x - 619) * 35 + counter_y - 425}];
-					6: color <= six[{(counter_x - 619) * 35 + counter_y - 425}];
-					7: color <= seven[{(counter_x - 619) * 35 + counter_y - 425}];
-					8: color <= eight[{(counter_x - 619) * 35 + counter_y - 425}];
-					9: color <= nine[{(counter_x - 619) * 35 + counter_y - 425}];
+					0: color <= sifir[{(counter_x - 609) * 35 + counter_y - 425}];
+					1: color <= one[{(counter_x - 609) * 35 + counter_y - 425}];
+					2: color <= two[{(counter_x - 609) * 35 + counter_y - 425}];
+					3: color <= three[{(counter_x - 609) * 35 + counter_y - 425}];
+					4: color <= four[{(counter_x - 609) * 35 + counter_y - 425}];
+					5: color <= five[{(counter_x - 609) * 35 + counter_y - 425}];
+					6: color <= six[{(counter_x - 609) * 35 + counter_y - 425}];
+					7: color <= seven[{(counter_x - 609) * 35 + counter_y - 425}];
+					8: color <= eight[{(counter_x - 609) * 35 + counter_y - 425}];
+					9: color <= nine[{(counter_x - 609) * 35 + counter_y - 425}];
 					
 //					default : color <= sifir[{(counter_x - 619) * 35 + counter_y - 425}];
 									
@@ -1562,18 +1562,18 @@ always @(posedge clk25MHz)  // horizontal counter
 			end
 			
 			//buffer4
-			else if (counter_x >=645 && counter_x < 664 && counter_y >= 425 && counter_y < 460)begin
+			else if (counter_x >=635 && counter_x < 654 && counter_y >= 425 && counter_y < 460)begin
 					case(drops_b41)
-					0: color <= sifir[{(counter_x - 645) * 35 + counter_y - 425}];
-					1: color <= one[{(counter_x - 645) * 35 + counter_y - 425}];
-					2: color <= two[{(counter_x - 645) * 35 + counter_y - 425}];
-					3: color <= three[{(counter_x - 645) * 35 + counter_y - 425}];
-					4: color <= four[{(counter_x - 645) * 35 + counter_y - 425}];
-					5: color <= five[{(counter_x - 645) * 35 + counter_y - 425}];
-					6: color <= six[{(counter_x - 645) * 35 + counter_y - 425}];
-					7: color <= seven[{(counter_x - 645) * 35 + counter_y - 425}];
-					8: color <= eight[{(counter_x - 645) * 35 + counter_y - 425}];
-					9: color <= nine[{(counter_x - 645) * 35 + counter_y - 425}];
+					0: color <= sifir[{(counter_x - 635) * 35 + counter_y - 425}];
+					1: color <= one[{(counter_x - 635) * 35 + counter_y - 425}];
+					2: color <= two[{(counter_x - 635) * 35 + counter_y - 425}];
+					3: color <= three[{(counter_x - 635) * 35 + counter_y - 425}];
+					4: color <= four[{(counter_x - 635) * 35 + counter_y - 425}];
+					5: color <= five[{(counter_x - 635) * 35 + counter_y - 425}];
+					6: color <= six[{(counter_x - 635) * 35 + counter_y - 425}];
+					7: color <= seven[{(counter_x - 635) * 35 + counter_y - 425}];
+					8: color <= eight[{(counter_x - 635) * 35 + counter_y - 425}];
+					9: color <= nine[{(counter_x - 635) * 35 + counter_y - 425}];
 					
 //					default : color <= sifir[{(counter_x - 645) * 35 + counter_y - 425}];
 									
@@ -1581,18 +1581,18 @@ always @(posedge clk25MHz)  // horizontal counter
 				
 			end
 			
-			else if (counter_x >= 664 && counter_x < 683 && counter_y >= 425 && counter_y < 460)begin
+			else if (counter_x >= 654 && counter_x < 673 && counter_y >= 425 && counter_y < 460)begin
 					case(drops_b42)
-					0: color <= sifir[{(counter_x - 664) * 35 + counter_y - 425}];
-					1: color <= one[{(counter_x - 664) * 35 + counter_y - 425}];
-					2: color <= two[{(counter_x - 664) * 35 + counter_y - 425}];
-					3: color <= three[{(counter_x - 664) * 35 + counter_y - 425}];
-					4: color <= four[{(counter_x - 664) * 35 + counter_y - 425}];
-					5: color <= five[{(counter_x - 664) * 35 + counter_y - 425}];
-					6: color <= six[{(counter_x - 664) * 35 + counter_y - 425}];
-					7: color <= seven[{(counter_x - 664) * 35 + counter_y - 425}];
-					8: color <= eight[{(counter_x - 664) * 35 + counter_y - 425}];
-					9: color <= nine[{(counter_x - 664) * 35 + counter_y - 425}];
+					0: color <= sifir[{(counter_x - 654) * 35 + counter_y - 425}];
+					1: color <= one[{(counter_x - 654) * 35 + counter_y - 425}];
+					2: color <= two[{(counter_x - 654) * 35 + counter_y - 425}];
+					3: color <= three[{(counter_x - 654) * 35 + counter_y - 425}];
+					4: color <= four[{(counter_x - 654) * 35 + counter_y - 425}];
+					5: color <= five[{(counter_x - 654) * 35 + counter_y - 425}];
+					6: color <= six[{(counter_x - 654) * 35 + counter_y - 425}];
+					7: color <= seven[{(counter_x - 654) * 35 + counter_y - 425}];
+					8: color <= eight[{(counter_x - 654) * 35 + counter_y - 425}];
+					9: color <= nine[{(counter_x - 654) * 35 + counter_y - 425}];
 					
 //					default : color <= sifir[{(counter_x - 664) * 35 + counter_y - 425}];
 									
