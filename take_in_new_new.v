@@ -1,4 +1,4 @@
-module take_in_new
+module take_in_new_new
 #( parameter threshold = 3)
 (input start, input clk, // 50 MHz
 input key0, input key1, input swa,
@@ -269,7 +269,7 @@ input key0, input key1, input swa,
 		if(swa) readNow = readNow+1;
 		else readNow = 0;
 		
-		if(readNow == 75000000 && swa) begin
+		if(readNow == 150000000 && swa) begin
 		
 			outputer <= 0;
 
@@ -470,12 +470,16 @@ input key0, input key1, input swa,
 						buffer1_o[2:0] = {data[1:0],1'b1};
 						sizeB1 <= sizeB1 +1;
 						received_data_b1 = received_data_b1 + 1;
+						if (sizeB1 > 6)
+							drops_b1 = drops_b1 + 1;
 					end
 					2'b01:begin
 						buffer2_o[17:3]=buffer2_o[14:0];
 						buffer2_o[2:0] = {data[1:0],1'b1};
 						sizeB2 <= sizeB2 +1;
 						received_data_b2 = received_data_b2 + 1;
+						if (sizeB2 > 6)
+							drops_b2 = drops_b2 + 1;
 					end
 					
 					2'b10:begin
@@ -483,6 +487,8 @@ input key0, input key1, input swa,
 						buffer3_o[2:0] = {data[1:0],1'b1};
 						sizeB3 <= sizeB3 +1;
 						received_data_b3 = received_data_b3 + 1;
+						if (sizeB3 > 6)
+							drops_b3 = drops_b3 + 1;
 					end
 					
 					2'b11:begin
@@ -490,16 +496,18 @@ input key0, input key1, input swa,
 						buffer4_o[2:0] = {data[1:0],1'b1};
 						sizeB4 <= sizeB4 +1;
 						received_data_b4 = received_data_b4 + 1;
+						if (sizeB4 > 6)
+							drops_b4 = drops_b4 + 1;
 					end
 			endcase
 		end
 	end
 	
-	drops_b1 = received_data_b1 - reada_b1;
-	drops_b2 = received_data_b2 - reada_b2;
-	drops_b3 = received_data_b3 - reada_b3;
-	drops_b4 = received_data_b4 - reada_b4;
-	
+//	drops_b1 = received_data_b1 - reada_b1;
+//	drops_b2 = received_data_b2 - reada_b2;
+//	drops_b3 = received_data_b3 - reada_b3;
+//	drops_b4 = received_data_b4 - reada_b4;
+
 end
 	
 
